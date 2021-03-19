@@ -46,6 +46,9 @@ clf
 
 % prepare the data
 % <place your work here>
+Table = readtable('./data/data_clean_more_fixed.xlsx');
+data = table2array(Table);
+
 % ... = xlsread()/csvread()/readtable()
 % ...
 % myVector(isnan(myVector))=[];
@@ -67,10 +70,11 @@ clf
 part = 1;
 % model Felix Baumgartner’s altitude, velocity, and acceleration for the 
 %     first minute after he jumped from 38,969.4 meters above sea level
-%[T,M] = ode45(@fall, % <...>) 
+[T,M] = ode45(@fall, [0,60], [4000,0])
+
 
 % <call here your function to create your plots>
-%plotComparisons(60, 'Part1 - Freefall', T, M <, ...>)  
+plotComparisons(60, 'Part1 - Freefall', T, M)  
 
 %% Part 2
 % Answer some questions here in these comments...
@@ -198,7 +202,9 @@ function res = fall(t, X)
     dvdt = acceleration(t, y, v); % acceleration: the derivative of velocity w.r.t. time
 
     res = [dydt; dvdt]; % pack the results in a column vector
-end
+end    
+
+
 
 function res = acceleration(t, y, v)
     % <insert description of function here>
@@ -260,6 +266,8 @@ end
 % Nest any other functions below.  
 %Do not put functions in other files when you submit, except you can use
 %    the stdatmo function in file stdatmo.m which has been provided to you.
-
+    function plotComparison(x, title, T, M)
+        he
+    
 % end of nested functions
 end % closes function main.  
