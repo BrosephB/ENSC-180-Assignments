@@ -266,8 +266,9 @@ end
 % Nest any other functions below.  
 %Do not put functions in other files when you submit, except you can use
 %    the stdatmo function in file stdatmo.m which has been provided to you.
-    function plotComparison(x, title, T, M)
-        he
+function res = plotComparison(x, title, T, M)
+    
+        
     
 % end of nested functions
 end % closes function main.  
