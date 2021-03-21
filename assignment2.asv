@@ -270,17 +270,15 @@ function res = plotComparison(x, title, T, M)
     % time indexes for max time = x
     for k = 1:length(T)
         if T(k) == x
-            t = 1:k; % indexes only from the start of the fall until x seconds
+            t = 1:k % indexes only from the start of the fall until x seconds
             break
         end
     end
-    % position/velocity indexes for max time = x using first column entries of M
     y = []
-    v = []
     for k = 1:length(t)
-        y = [y M(k,1)]
-        v = [v M(k,2)]
-    end
+        y = [y M(k,1)] 
+    y = M(1,1):M(length(t),1) % first column entries of M is position
+    v = M(1,2):M(length(t),2) % second column entries of M is velocity
     % subplot for model of position
     subplot(1,1,1);
     plot(t,y)
