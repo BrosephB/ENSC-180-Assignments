@@ -74,7 +74,7 @@ part = 1;
 
 
 % <call here your function to create your plots>
-plotComparisons(60, 'Part1 - Freefall', T, M)  
+plotComparison(60, 'Part1 - Freefall', T, M)  
 
 %% Part 2
 % Answer some questions here in these comments...
@@ -266,8 +266,54 @@ end
 % Nest any other functions below.  
 %Do not put functions in other files when you submit, except you can use
 %    the stdatmo function in file stdatmo.m which has been provided to you.
-    function plotComparison(x, title, T, M)
-        he
+function res = plotComparison(x, mytitle, T, M)
+    % time indexes for max time = x
+    for k = 1:length(T)
+        if T(k) == x
+            t = 1:k; % indexes only from the start of the fall until x seconds
+            break
+        end
+    end
+    % position/velocity indexes for max time = x using first column entries of M
+    y = []
+    v = []
+    for k = 1:length(t)
+        y = [y M(k,1)]
+        v = [v M(k,2)]
+    end
+    % subplot for model of position
+    subplot(3,2,1);
+    plot(t,y)
+    title(mytitle,'modeled altitude')
+    % subplot for experimental data of position 
+    subplot(3,2,2);
+    %FILL IN COMMANDS
+    title(mytitle,'Measured altitude')
+    a = (data(:,2));
+    plot(a)
+    % subplot for model of velocity
+    subplot(3,2,3);
+    plot(t,v)
+    title(mytitle,'Modeled Velocity')
+    % subplot for experimental data of velocity
+    subplot(3,2,4);
+ 
+    % FILL IN COMMANDS
+    title(mytitle,'Measured Velocity')
+    b = (data(:,3));
+    plot(b)
+    % subplot for model of acceleration
+    subplot(3,2,5);
+    % FILL IN COMMANDS 
+    title(mytitle,'Modeled Acceleration')
+    % subplot for measured acceleration
+    subplot(3,2,6);
+    % FILL IN COMMANDS
+    title(mytitle,'Measured Acceleration')
+    syms x
+    f = b
+    plot(diff(f))
+end       
     
 % end of nested functions
 end % closes function main.  
