@@ -289,19 +289,29 @@ function res = plotComparison(x, mytitle, T, M)
     subplot(3,2,2);
     %FILL IN COMMANDS
     title(mytitle,'Measured altitude')
+
     a = (data(:,2));
     plot(a)
+
+    
+
     % subplot for model of velocity
     subplot(3,2,3);
     plot(t,v)
     title(mytitle,'Modeled Velocity')
     % subplot for experimental data of velocity
     subplot(3,2,4);
+
  
     % FILL IN COMMANDS
     title(mytitle,'Measured Velocity')
     b = (data(:,3));
     plot(b)
+
+    % FILL IN COMMANDS
+    title(mytitle,'Measured Velocity')
+    
+
     % subplot for model of acceleration
     subplot(3,2,5);
     % FILL IN COMMANDS 
@@ -310,9 +320,11 @@ function res = plotComparison(x, mytitle, T, M)
     subplot(3,2,6);
     % FILL IN COMMANDS
     title(mytitle,'Measured Acceleration')
+
     syms x
     f = b
     plot(diff(f))
+
 end       
     
 % end of nested functions
