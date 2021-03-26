@@ -285,17 +285,7 @@ function res = plotComparisons(x, mytitle, T, M)
     %alt_data(1:time_index_min), 'b-');
     %plot(T,M(:,1),'r-');
     %hold on;
-    %% Preprocessing - fill missing data using simple linear interpolation
-
- 
-
-idx = 1:length(data)-1;
-
-[t_data, ~] = fillmissing(t_data,'linear','SamplePoints',idx);
-
-[alt_data, ~] = fillmissing(alt_data,'linear','SamplePoints',idx);
-
-[vel_data, ~] = fillmissing(vel_data,'linear','SamplePoints',idx);
+    
     Table = readtable('./data/data_clean_more_fixed.xlsx');
     data = table2array(Table(1:length(t),:));
     for k = 1:length(t)
@@ -332,7 +322,6 @@ idx = 1:length(data)-1;
     syms x
     f = b
     plot(diff(f))
-    %diff(velocity)./diff(time)
     
     
 
