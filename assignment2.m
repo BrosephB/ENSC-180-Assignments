@@ -47,7 +47,7 @@ clf
 % prepare the data
 % <place your work here>
 Table = readtable('./data/data_clean_more_fixed.xlsx');
-data = table2array(Table);
+data = table2array(Table(1:61,:));
 
 % ... = xlsread()/csvread()/readtable()
 % ...
@@ -278,49 +278,36 @@ function res = plotComparison(x, mytitle, T, M)
     y = []
     v = []
     for k = 1:length(t)
-        y = [y M(k,1)]
-        v = [v M(k,2)]
+        y = [y M(k,1)];
+        v = [v M(k,2)];
     end
     % subplot for model of position
-    subplot(3,2,1);
-    plot(t,y)
-    title(mytitle,'modeled altitude')
+    subplot(3,1,1);
+    hold on
+    title(mytitle,'Altitude')
+    plot(t,y,'r-')
     % subplot for experimental data of position 
-    subplot(3,2,2);
-    %FILL IN COMMANDS
-    title(mytitle,'Measured altitude')
-
     a = (data(:,2));
-    plot(a)
-
+    plot(a,'bo')
+    hold off
     
 
     % subplot for model of velocity
-    subplot(3,2,3);
-    plot(t,v)
-    title(mytitle,'Modeled Velocity')
+    subplot(3,1,2);
+    hold on
+    plot(t,v,'r-')
+    title(mytitle,'Velocity')
     % subplot for experimental data of velocity
-    subplot(3,2,4);
-
- 
-    % FILL IN COMMANDS
-    title(mytitle,'Measured Velocity')
     b = (data(:,3));
-    plot(b)
-
-    % FILL IN COMMANDS
-    title(mytitle,'Measured Velocity')
+    plot(b,'bo')
+    hold off
     
 
     % subplot for model of acceleration
-    subplot(3,2,5);
+    subplot(3,1,3);
     % FILL IN COMMANDS 
-    title(mytitle,'Modeled Acceleration')
+    title(mytitle,'Acceleration')
     % subplot for measured acceleration
-    subplot(3,2,6);
-    % FILL IN COMMANDS
-    title(mytitle,'Measured Acceleration')
-
     syms x
     f = b
     plot(diff(f))
