@@ -4,17 +4,16 @@
 %wired.com/2012/07/analysis-of-a-red-bull-stratos-practice-jump
 %% ENSC180-Assignment2
 
-% Student Name 1: student1
+% Student Name 1: Sepehr Borji
 
 % Student 1 #: 123456781
 
 % Student 1 userid (email): stu1 (stu1@sfu.ca)
 
-% Student Name 2: student2
+% Student Name 2: Akashroop Malhi
 
-% Student 2 #: 123456782
-
-% Student 2 userid (email): stu2 (stu2@sfu.ca)
+% Student 2 #: 301393341
+% Student 2 userid (email): stu2 (asm19@sfu.ca)
 
 % Below, edit to list any people who helped you with the assignment, 
 %      or put ‘none’ if nobody helped (the two of) you.
@@ -50,7 +49,8 @@ clf
 
 % prepare the data
 % <place your work here>
-
+    Table = readtable('./data/data_clean_more_fixed_simplest.xlsx');
+    data = table2array(Table);
 
 % ... = xlsread()/csvread()/readtable()
 % ...
@@ -61,19 +61,27 @@ clf
 %% Part 1
 % Answer some questions here in these comments...
 % How accurate is the model for the first portion of the minute? 
-% <put your answer here in these comments>
+% The height vs the height measured is quite similar, in fact they are
+% almost identical to eachother for the first portion of the minute. We can
+% also state the same for velocity, as they are almost identical again.
+% However, the measured acceleration changes quite frequently but remains
+% similar to the modelled acceleration. Therfore, all of models are quite
+% similar to eachother for the first portion of the minute.
 
 % How accurate is the model for the last portion of that first minute? 
-% <put your answer here in these comments>
+% The three models seems to differ at the start of the last portion of the
+% first minute. This is where the values no longer overlap with eachother
+% and you can see a difference between the modelled and measured values.
 
 % Comment on the acceleration calculated from the measured data. 
 % Is there any way to smooth the acceleration calculated from the data?
-% <put your answer here in these comments>
+% The function smoothdata() helps smooth the acceleration calculated from
+% the data.
 
 part = 1;
 % model Felix Baumgartner’s altitude, velocity, and acceleration for the 
 %     first minute after he jumped from 38,969.4 meters above sea level
-[T,M] = ode45(@fall, [0,60], [4000,0])
+[T,M] = ode45(@fall, [0,60], [39000,0])
 
 
 % <call here your function to create your plots>
@@ -83,7 +91,7 @@ plotComparisons(60, 'Part1 - Freefall', T, M)
 % Answer some questions here in these comments...
 % Estimate your uncertainty in the mass that you have chosen (at the 
 %     beginning of the jump). 
-% <put your answer here in these comments>
+% 
 
 % How sensitive is the velocity and altitude reached after 60 seconds to 
 %    changes in the chosen mass?
@@ -93,7 +101,7 @@ part = 2;
 [T,M] = ode45(@fall, [0,60], [4000,0]);
 
 % <call here your function to create your plots>
-%plotComparisons(<...>, 'Part2 - Simple Air Resistance', T, M <, ...>) 
+plotComparisons(60, 'Part2 - Simple Air Resistance', T, M)
 
 %% Part 3
 % Answer some questions here in these comments...
@@ -207,8 +215,6 @@ function res = fall(t, X)
     res = [dydt; dvdt]; % pack the results in a column vector
 end    
 
-
-
 function res = acceleration(t, y, v)
     % <insert description of function here>
     % input...
@@ -249,7 +255,7 @@ end
 
 function res = mass(t, v)
   
-    %res = 73 + 27 + 3.628 + 14;  
+    res = 73 + 27 + 3.628 + 14;  %
 end
 
 function res = drag(t, y, v, m)
@@ -289,21 +295,24 @@ function res = plotComparisons(x, mytitle, T, M)
 
  
 
-idx = 1:length(data)-1;
+%idx = 1:length(data)-1;
 
-[t_data, ~] = fillmissing(t_data,'linear','SamplePoints',idx);
+%[t_data, ~] = fillmissing(t_data,'linear','SamplePoints',idx);
 
-[alt_data, ~] = fillmissing(alt_data,'linear','SamplePoints',idx);
+%[alt_data, ~] = fillmissing(alt_data,'linear','SamplePoints',idx);
 
-[vel_data, ~] = fillmissing(vel_data,'linear','SamplePoints',idx);
-    Table = readtable('./data/data_clean_more_fixed.xlsx');
-    data = table2array(Table(1:length(t),:));
+%[vel_data, ~] = fillmissing(vel_data,'linear','SamplePoints',idx);
+
     for k = 1:length(t)
         y = [y M(k,1)];
         v = [v M(k,2)];
     end
     % subplot for model of position
+    figure;
     subplot(3,1,1);
+   
+    xlabel('s');
+    ylabel('m');
     hold on
     title(mytitle,'Altitude')
     plot(t,y,'r-')
@@ -315,24 +324,34 @@ idx = 1:length(data)-1;
 
     % subplot for model of velocity
     subplot(3,1,2);
+  
     hold on
+    xlabel('s');
+    ylabel('m/s');
     plot(t,v,'r-')
     title(mytitle,'Velocity')
     % subplot for experimental data of velocity
-    b = (data(:,3));
+    b = smoothdata((data(:,3)));
     plot(b,'b-')
     hold off
     
 
     % subplot for model of acceleration
     subplot(3,1,3);
+    
+    xlabel('s');
+    ylabel('m/s^2');
+    hold on 
+    plot(diff(v)./diff(t))
     % FILL IN COMMANDS 
     title(mytitle,'Acceleration')
     % subplot for measured acceleration
     syms x
-    f = b
-    plot(diff(f))
-    %diff(velocity)./diff(time)
+    plot(diff(b)./diff(t))
+    hold off
+   
+   
+    
     
     
 
