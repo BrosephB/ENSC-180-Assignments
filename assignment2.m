@@ -42,7 +42,10 @@ function main
 clf
 
 % constants -- you can put constants for the program here
-%MY_CONST = 123;
+%MY_CONST = 123;'
+
+g = -9.8;
+
 
 % variables -- you can put variables for the program here
 %myVar = 456;
@@ -91,14 +94,16 @@ plotComparisons(60, 'Part1 - Freefall', T, M)
 % Answer some questions here in these comments...
 % Estimate your uncertainty in the mass that you have chosen (at the 
 %     beginning of the jump). 
-% 
+% After research, the combined mass that we found was 118kg. Therefore, we
+% also tested two more cases (116kg and 120kg) to check for uncertainty and
+% sensitivity.
 
 % How sensitive is the velocity and altitude reached after 60 seconds to 
 %    changes in the chosen mass?
 % <put your answer here in these comments>
 
 part = 2;
-[T,M] = ode45(@fall, [0,60], [4000,0]);
+[T,M] = ode45(@fall, [0,60], [39000,0]);
 
 % <call here your function to create your plots>
 plotComparisons(60, 'Part2 - Simple Air Resistance', T, M)
@@ -128,9 +133,11 @@ plotComparisons(60, 'Part2 - Simple Air Resistance', T, M)
 % <put your answer here in these comments>
 
 part = 3;
+[T,M] = ode45(@fall, [0,270], [39000,0]);
 
-% <place your work here>
 
+% <call here your function to create your plots>
+plotComparisons(270, 'Part3 - Freefall 4.5 Minutes', T, M);
 %% Part 4
 % Answer some questions here in these comments...
 % What is the actual gravitational field strength around 39,000 meters? 
@@ -245,17 +252,17 @@ end
 function grav = gravityEst(y)
     % estimate the acceleration due to gravity as a function of altitude, y
     g_SEA = 9.807;  % gravity at sea level in m/s^2
-
-    % if part <= 3;
+    r_earth = 6371000;
+     if part <= 3;
         grav = g_SEA;
-    % else
-        %grav = g_SEA*(r
-    % end
+     else
+        grav = g_SEA*(r_earth^2)./(r_earth*y).^2;
+     end
 end
 
 function res = mass(t, v)
   
-    res = 73 + 27 + 3.628 + 14;  %
+    res = 73 + 27 + 3.628 + 14;  %felix + pressure suit + helmet with Oxygen + parachute
 end
 
 function res = drag(t, y, v, m)
@@ -266,10 +273,43 @@ function res = drag(t, y, v, m)
     else
         % air resistance drag = 1/2*rho*c_d*a = 1/2*rho*CdA
         %%%%%%%%%%% input your code here %%%%%%%%%%%%%%%%
-        %CdA = ...
+        CdA = finding_ACd(m);
+        rho = stdatmo(y);
+        res = 1/2*rho*CdA;
 
     end
 end
+
+function res = ACd_Calculator(h, v_terminal, m)
+    rho = stdatmo(h);
+    g = gravityEst(h);
+    res = 2*(g).*m./rho*v_terminal.^2;
+    
+end
+
+function res = finding_ACd(m)
+        h = 27833;
+        v_terminal = 1357.6;
+        before_Parachute = ACd_Calculator(h, v_terminal, m);
+        
+        h = 2516;
+        v_terminal = 178;
+        after_Parachute = ACd_Calculator(h, v_terminal, m);
+        
+        if(part == 1 || part == 2 || part == 3 || part == 4)
+            res =  before_Parachute;
+        elseif part == 5
+            if 2516 > h
+                res =  before_Parachute;
+            elseif 2516 < h
+                res =  after_Parachute;
+            end
+        end
+end
+        
+
+
+  
 
 %% Additional nested functions
 % Nest any other functions below.  
@@ -284,8 +324,8 @@ function res = plotComparisons(x, mytitle, T, M)
         end
     end
     % position/velocity indexes for max time = x using first column entries of M
-    y = []
-    v = []
+    y = [];
+    v = [];
     %time_index=find(t_data >= time);
     %plot(t_data(1:time_index_min)
     %alt_data(1:time_index_min), 'b-');
