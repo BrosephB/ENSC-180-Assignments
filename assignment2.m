@@ -175,8 +175,8 @@ plotComparisons(270, 'Part3: Drag', T, M);
 % <put your answer here in these comments>
 
 part = 4;
-
-% <place your work here>
+[T,M] = ode45(@fall, [0,270], [39000,0]);
+plotComparisons(270, 'Part4: Drag', T, M);
 
 %% Part 5
 % Answer some questions here in these comments...
@@ -268,7 +268,7 @@ function grav = gravityEst(y)
         grav = g_SEA;
      else
         r_earth = 6371000;
-        grav = g_SEA*(r_earth^2)./(r_earth*y).^2;
+        grav = g_SEA*(r_earth^2)./(r_earth+y).^2;
      end
 end
 
@@ -303,7 +303,7 @@ function res = finding_ACd(m)
         h = 27833;
         v_terminal = 1357.6;
         before_Parachute = ACd_Calculator(h, v_terminal, m);
-        
+        res = 0;
 end
         
 
