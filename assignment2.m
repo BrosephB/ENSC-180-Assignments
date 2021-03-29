@@ -54,7 +54,7 @@ g = -9.8;
 % prepare the data
 % <place your work here>
     Table = readtable('./data/data_clean_more_fixed_simplest.xlsx');
-    data = table2array(Table);
+    data = table2array(Table);    
 
 % ... = xlsread()/csvread()/readtable()
 % ...
@@ -105,10 +105,10 @@ plotComparisons(60, 'Part1 - Freefall', T, M)
 % change in terminal velocity. (Shift up or down)
 
 part = 2;
-[T,M] = ode45(@fall, [0,60], [38959,0]);
+%[T,M] = ode45(@fall, [0,60], [38959,0]);
 
 % <call here your function to create your plots>
-plotComparisons(60, 'Part2 - Simple Air Resistance', T, M)
+%plotComparisons(60, 'Part2 - Simple Air Resistance', T, M)
 
 %% Part 3
 % Answer some questions here in these comments...
@@ -144,11 +144,11 @@ plotComparisons(60, 'Part2 - Simple Air Resistance', T, M)
 % <put your answer here in these comments>
 
 part = 3;
-[T,M] = ode45(@fall, [0,270], [39000,0]);
+%[T,M] = ode45(@fall, [0,270], [39000,0]);
 
 
 % <call here your function to create your plots>
-plotComparisons(270, 'Part3: Drag', T, M);
+%plotComparisons(270, 'Part3: Drag', T, M);
 %% Part 4
 % Answer some questions here in these comments...
 % What is the actual gravitational field strength around 39,000 meters? 
@@ -175,8 +175,8 @@ plotComparisons(270, 'Part3: Drag', T, M);
 % <put your answer here in these comments>
 
 part = 4;
-
-% <place your work here>
+%[T,M] = ode45(@fall, [0,270], [39000,0]);
+%plotComparisons(270, 'Part4: Universal Gravitation', T, M);
 
 %% Part 5
 % Answer some questions here in these comments...
@@ -264,12 +264,12 @@ function grav = gravityEst(y)
     % estimate the acceleration due to gravity as a function of altitude, y
     g_SEA = 9.807;  % gravity at sea level in m/s^2
     
-     if part <= 3;
+    if part <= 3;
         grav = g_SEA;
-     else
-        r_earth = 6371000;
-        grav = g_SEA*(r_earth^2)./(r_earth*y).^2;
-     end
+    else
+       r_earth = 6371000;
+       grav = g_SEA*(r_earth^2)./(r_earth+y).^2;
+    end
 end
 
 function res = mass(t, v)
@@ -303,7 +303,7 @@ function res = finding_ACd(m)
         h = 27833;
         v_terminal = 1357.6;
         before_Parachute = ACd_Calculator(h, v_terminal, m);
-        
+                
 end
         
 
@@ -346,6 +346,8 @@ function res = plotComparisons(x, mytitle, T, M)
         y = [y M(k,1)];
         v = [v M(k,2)];
     end
+    b = smoothdata((data(:,3)));
+    plot(diff(b)./diff(t))
     % subplot for model of position
     figure;
     subplot(3,1,1);
@@ -391,13 +393,14 @@ function res = plotComparisons(x, mytitle, T, M)
     plot(diff(b)./diff(t))
     legend('Actual', 'Modeled')
     hold off
-   
-   
     
+    
+    
+ 
     
     
 
 end       
     
 % end of nested functions
-end % closes function main.  
+end % closes function main.
