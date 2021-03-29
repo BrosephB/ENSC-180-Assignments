@@ -47,6 +47,7 @@ clf
 g = -9.8;
 
 
+
 % variables -- you can put variables for the program here
 %myVar = 456;
 
@@ -84,7 +85,7 @@ g = -9.8;
 part = 1;
 % model Felix Baumgartner’s altitude, velocity, and acceleration for the 
 %     first minute after he jumped from 38,969.4 meters above sea level
-[T,M] = ode45(@fall, [0,60], [39000,0])
+[T,M] = ode45(@fall, [0,60], [38959,0]);
 
 
 % <call here your function to create your plots>
@@ -94,16 +95,17 @@ plotComparisons(60, 'Part1 - Freefall', T, M)
 % Answer some questions here in these comments...
 % Estimate your uncertainty in the mass that you have chosen (at the 
 %     beginning of the jump). 
-% After research, the combined mass that we found was 118kg. Therefore, we
-% also tested two more cases (116kg and 120kg) to check for uncertainty and
-% sensitivity.
+% After research, the combined mass that we found was 118kg. The mass
+% included felix + pressure suit + helmet with Oxygen + parachute.
 
 % How sensitive is the velocity and altitude reached after 60 seconds to 
 %    changes in the chosen mass?
-% <put your answer here in these comments>
+% If we changed the mass to 116kg or 120kg in order to consider the chances
+% of calculation error, we noticed that changing mass values leads to
+% change in terminal velocity. (Shift up or down)
 
 part = 2;
-[T,M] = ode45(@fall, [0,60], [39000,0]);
+[T,M] = ode45(@fall, [0,60], [38959,0]);
 
 % <call here your function to create your plots>
 plotComparisons(60, 'Part2 - Simple Air Resistance', T, M)
@@ -114,7 +116,16 @@ plotComparisons(60, 'Part2 - Simple Air Resistance', T, M)
 %     What can we say about the density of air in the stratosphere?
 %     How is the density of air different at around 39,000 meters than it 
 %     is on the ground?
-% <put your answer here in these comments>
+% The density of air near the top of the strtosphere is nearly zero. Here
+% is our source: http://www.ccpo.odu.edu/SEES/ozone/class/Chap_6/6_2.htm#:~:text=The%20density%20of%20air%20near,with%20altitude%20and%20then%20increases.
+% The density of air compared to the ground it close to 1.2
+% Felix needs to wear his own helmet with oxyge and pressure suit since
+% there is a lack of atomosphere pressure and air which will allow him to
+% die.
+% There was a higher velocity at the higher stratosphere point, therefore
+% Felix has a lower drag froce at 39000m. Therefore, we can conclude that
+% the lower the altitude, the higher the density of air.
+
 
 % What are the factors involved in calculating the density of air? 
 %     How do those factors change when we end up at the ground but start 
@@ -137,7 +148,7 @@ part = 3;
 
 
 % <call here your function to create your plots>
-plotComparisons(270, 'Part3 - Freefall 4.5 Minutes', T, M);
+plotComparisons(270, 'Part3: Drag', T, M);
 %% Part 4
 % Answer some questions here in these comments...
 % What is the actual gravitational field strength around 39,000 meters? 
@@ -252,10 +263,11 @@ end
 function grav = gravityEst(y)
     % estimate the acceleration due to gravity as a function of altitude, y
     g_SEA = 9.807;  % gravity at sea level in m/s^2
-    r_earth = 6371000;
+    
      if part <= 3;
         grav = g_SEA;
      else
+        r_earth = 6371000;
         grav = g_SEA*(r_earth^2)./(r_earth*y).^2;
      end
 end
@@ -292,19 +304,6 @@ function res = finding_ACd(m)
         v_terminal = 1357.6;
         before_Parachute = ACd_Calculator(h, v_terminal, m);
         
-        h = 2516;
-        v_terminal = 178;
-        after_Parachute = ACd_Calculator(h, v_terminal, m);
-        
-        if(part == 1 || part == 2 || part == 3 || part == 4)
-            res =  before_Parachute;
-        elseif part == 5
-            if 2516 > h
-                res =  before_Parachute;
-            elseif 2516 < h
-                res =  after_Parachute;
-            end
-        end
 end
         
 
@@ -359,12 +358,12 @@ function res = plotComparisons(x, mytitle, T, M)
     % subplot for experimental data of position 
     a = (data(:,2));
     plot(a,'b-')
+    legend('Actual', 'Modeled')
     hold off
     
 
     % subplot for model of velocity
     subplot(3,1,2);
-  
     hold on
     xlabel('s');
     ylabel('m/s');
@@ -373,6 +372,7 @@ function res = plotComparisons(x, mytitle, T, M)
     % subplot for experimental data of velocity
     b = smoothdata((data(:,3)));
     plot(b,'b-')
+    legend('Actual', 'Modeled')
     hold off
     
 
@@ -381,6 +381,7 @@ function res = plotComparisons(x, mytitle, T, M)
     
     xlabel('s');
     ylabel('m/s^2');
+    legend('Actual', 'Modeled')
     hold on 
     plot(diff(v)./diff(t))
     % FILL IN COMMANDS 
@@ -388,6 +389,7 @@ function res = plotComparisons(x, mytitle, T, M)
     % subplot for measured acceleration
     syms x
     plot(diff(b)./diff(t))
+    legend('Actual', 'Modeled')
     hold off
    
    
