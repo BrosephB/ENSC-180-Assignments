@@ -8,7 +8,7 @@
 
 % Student 1 #: 123456781
 
-% Student 1 userid (email): stu1 (stu1@sfu.ca)
+% Student 1 userid (email): Sepehr_borji@sfu.ca
 
 % Student Name 2: Akashroop Malhi
 
@@ -18,7 +18,7 @@
 % Below, edit to list any people who helped you with the assignment, 
 %      or put ‘none’ if nobody helped (the two of) you.
 
-% Helpers: _everybody helped us/me with the assignment (list names or put ‘none’)__
+% Helpers: none
 
 %% Instructions:
 % * Put your name(s), student number(s), userid(s) in the above section.
@@ -107,7 +107,6 @@ plotComparisons(60, 'Part1 - Freefall', T, M)
 part = 2;
 %[T,M] = ode45(@fall, [0,60], [38959,0]);
 
-% <call here your function to create your plots>
 %plotComparisons(60, 'Part2 - Simple Air Resistance', T, M)
 
 %% Part 3
@@ -116,10 +115,10 @@ part = 2;
 %     What can we say about the density of air in the stratosphere?
 %     How is the density of air different at around 39,000 meters than it 
 %     is on the ground?
-% The density of air near the top of the strtosphere is nearly zero. Here
+% The density of air near the top of the stratosphere is nearly zero. Here
 % is our source: http://www.ccpo.odu.edu/SEES/ozone/class/Chap_6/6_2.htm#:~:text=The%20density%20of%20air%20near,with%20altitude%20and%20then%20increases.
-% The density of air compared to the ground it close to 1.2
-% Felix needs to wear his own helmet with oxyge and pressure suit since
+% The density of air compared to the ground is close to 1.2
+% Felix needs to wear his own helmet with oxygen and pressure suit since
 % there is a lack of atomosphere pressure and air which will allow him to
 % die.
 % There was a higher velocity at the higher stratosphere point, therefore
@@ -146,8 +145,6 @@ part = 2;
 part = 3;
 %[T,M] = ode45(@fall, [0,270], [39000,0]);
 
-
-% <call here your function to create your plots>
 %plotComparisons(270, 'Part3: Drag', T, M);
 %% Part 4
 % Answer some questions here in these comments...
@@ -181,7 +178,7 @@ part = 4;
 %% Part 5
 % Answer some questions here in these comments...
 % At what altitude does Felix pull the ripcord to deploy his parachute? 
-% <put your answer here in these comments>
+% at about 2517
 
 % Recalculate the CdA product with the parachute open, and modify your 
 %   code so that you use one CdA product before and one after this altitude. 
@@ -199,7 +196,11 @@ part = 5;
 %the parachute opens and the following 10 or so seconds. If you have 
 %trouble solving this version of the model, just plot the acceleration 
 %calculated from measurements. 
-% <place your work here>
+
+% plot for part 5 can be found in plotComparisons function. We tried to
+% plot the result from calculating before and after the parachute opening,
+% however, despite not giving us any errors, MATLAB became incredibly slow
+% in the debugging process and made it virtually impossible to debug
 
 %% Part 6 
 % Answer some questions here in these comments...
@@ -325,6 +326,7 @@ function res = plotComparisons(x, mytitle, T, M)
     % position/velocity indexes for max time = x using first column entries of M
     y = [];
     v = [];
+    nb = [];
     %time_index=find(t_data >= time);
     %plot(t_data(1:time_index_min)
     %alt_data(1:time_index_min), 'b-');
@@ -342,12 +344,13 @@ function res = plotComparisons(x, mytitle, T, M)
 
 %[vel_data, ~] = fillmissing(vel_data,'linear','SamplePoints',idx);
 
+    b = smoothdata((data(:,3)));
+    plot(diff(b)./diff(t))
     for k = 1:length(t)
         y = [y M(k,1)];
         v = [v M(k,2)];
-    end
-    b = smoothdata((data(:,3)));
-    plot(diff(b)./diff(t))
+        nb = [nb b(k)]
+    end    
     % subplot for model of position
     figure;
     subplot(3,1,1);
@@ -360,7 +363,7 @@ function res = plotComparisons(x, mytitle, T, M)
     % subplot for experimental data of position 
     a = (data(:,2));
     plot(a,'b-')
-    legend('Actual', 'Modeled')
+    legend('Modeled','Actual')
     hold off
     
 
@@ -374,7 +377,7 @@ function res = plotComparisons(x, mytitle, T, M)
     % subplot for experimental data of velocity
     b = smoothdata((data(:,3)));
     plot(b,'b-')
-    legend('Actual', 'Modeled')
+    legend('Modeled', 'Actual')
     hold off
     
 
@@ -383,15 +386,14 @@ function res = plotComparisons(x, mytitle, T, M)
     
     xlabel('s');
     ylabel('m/s^2');
-    legend('Actual', 'Modeled')
     hold on 
     plot(diff(v)./diff(t))
     % FILL IN COMMANDS 
     title(mytitle,'Acceleration')
     % subplot for measured acceleration
     syms x
-    plot(diff(b)./diff(t))
-    legend('Actual', 'Modeled')
+    plot(diff(nb)./diff(t))
+    legend('Modeled','Actual')
     hold off
     
     
