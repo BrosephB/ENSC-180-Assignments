@@ -1,10 +1,10 @@
 % ENSC180-Assignment3
 
-% Student Name 1: student1
+% Student Name 1: Sepehr Borji
 
-% Student 1 #: 123456781
+% Student 1 #: 301372450
 
-% Student 1 userid (email): stu1 (stu1@sfu.ca)
+% Student 1 userid (email): Sepehr_borji@sfu.ca
 
 % Student Name 2: student2
 
@@ -38,7 +38,7 @@ MAX_DEPTH = 32; % 192; % you will probably need to increase this.
 CMAP=colormap(flipud(jet(MAX_DEPTH))); %change the colormap as you want.
 
 WRITE_VIDEO_TO_FILE = false; % change this as you like (true/false)
-DO_IN_PARALLEL = false % true; %change this as you like (true/false)
+DO_IN_PARALLEL = true; % true; %change this as you like (true/false)
 
 if DO_IN_PARALLEL
     startClusterIfNeeded
@@ -102,6 +102,7 @@ end
 
 if WRITE_VIDEO_TO_FILE
     if DO_IN_PARALLEL
+        open(vidObj)
         writeVideo(vidObj, frameArray);
     end
     close(vidObj);
