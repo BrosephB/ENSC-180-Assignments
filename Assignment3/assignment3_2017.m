@@ -29,12 +29,12 @@
 
 function frameArray = assignment3_2017
 
-MAX_FRAMES = 128 %256; % you can change this and consider increasing it.
-RESOLUTION = 512; % you can change this and consider increasing it.
-DURATION = 16; % Duration of video -- you can change this if you want.
+MAX_FRAMES = 128; % you can change this and consider increasing it.
+RESOLUTION = 712; % you can change this and consider increasing it.
+DURATION = 7; % Duration of video -- you can change this if you want.
 
 % Colors
-MAX_DEPTH = 32; % 192; % you will probably need to increase this.
+MAX_DEPTH = 25; % you will probably need to increase this.
 CMAP=colormap(flipud(jet(MAX_DEPTH))); %change the colormap as you want.
 
 WRITE_VIDEO_TO_FILE = false; % change this as you like (true/false)
@@ -77,7 +77,12 @@ interpArray = interp1(scaledIndexArray, PATH_POINTS(:, 2:end), 0:(MAX_FRAMES-1),
 zoomArray = interpArray(:,2); % zoom level of each frame
 
 % ***** modify the below line to consider zoom levels.
-sizeArray = SIZE_0 * ones(MAX_FRAMES,1); % size from centre of each frame.
+% code below causes a gradual zooming out/in 
+sizeArray = [];
+for k = 1:MAX_FRAMES
+    sizeArray(k,1) = SIZE_0 * ((-1)^k)*k 
+end
+%sizeArray = SIZE_0 * ones(MAX_FRAMES,1); % size from centre of each frame.
 
 centreArray = interpArray(:,1);  % centre of each frame
 
@@ -117,9 +122,14 @@ else
 end
 
     function frame = iterate (frameNum)
-
-        centreX = real(centreArray(frameNum)); 
-        centreY = imag(centreArray(frameNum)); 
+        
+        if mod(frameNum,2) == 0
+            centreFactor = 6;
+        else
+            centreFactor = -6;
+        end
+        centreX = real(centreFactor*centreArray(frameNum)); 
+        centreY = imag(centreFactor*centreArray(frameNum)); 
         size = sizeArray(frameNum); 
         x = linspace(centreX - size, centreX + size, RESOLUTION);
         %you can modify the aspect ratio if you want.
