@@ -18,7 +18,7 @@
 % Below, edit to list any people who helped you with the assignment, 
 %      or put ‘none’ if nobody helped (the two of) you.
 
-% Helpers: none
+% Helpers: _everybody helped us/me with the assignment (list names or put ‘none’)__
 
 %% Instructions:
 % * Put your name(s), student number(s), userid(s) in the above section.
@@ -85,7 +85,7 @@ g = -9.8;
 part = 1;
 % model Felix Baumgartner’s altitude, velocity, and acceleration for the 
 %     first minute after he jumped from 38,969.4 meters above sea level
-[T,M] = ode45(@fall, [0,60], [38959,0]);
+[T,M] = ode45(@fall, [0,60], [38959,0])
 
 
 % <call here your function to create your plots>
@@ -105,9 +105,10 @@ plotComparisons(60, 'Part1 - Freefall', T, M)
 % change in terminal velocity. (Shift up or down)
 
 part = 2;
-%[T,M] = ode45(@fall, [0,60], [38959,0]);
+[T,M] = ode45(@fall, [0,60], [38959,0]);
 
-%plotComparisons(60, 'Part2 - Simple Air Resistance', T, M)
+% <call here your function to create your plots>
+plotComparisons(60, 'Part2 - Simple Air Resistance', T, M)
 
 %% Part 3
 % Answer some questions here in these comments...
@@ -115,10 +116,10 @@ part = 2;
 %     What can we say about the density of air in the stratosphere?
 %     How is the density of air different at around 39,000 meters than it 
 %     is on the ground?
-% The density of air near the top of the stratosphere is nearly zero. Here
+% The density of air near the top of the strtosphere is nearly zero. Here
 % is our source: http://www.ccpo.odu.edu/SEES/ozone/class/Chap_6/6_2.htm#:~:text=The%20density%20of%20air%20near,with%20altitude%20and%20then%20increases.
-% The density of air compared to the ground is close to 1.2
-% Felix needs to wear his own helmet with oxygen and pressure suit since
+% The density of air compared to the ground it close to 1.2
+% Felix needs to wear his own helmet with oxyge and pressure suit since
 % there is a lack of atomosphere pressure and air which will allow him to
 % die.
 % There was a higher velocity at the higher stratosphere point, therefore
@@ -130,55 +131,64 @@ part = 2;
 %     How do those factors change when we end up at the ground but start 
 %     at the stratosphere?  Please explain how calculating air density up 
 %     to the stratosphere is more complicated than say just in the troposphere.
-% <put your answer here in these comments>
-
+% After research, the factors thaat involve calculating the density of air
+% wa mainly pressure, temperature, and humidity. The air density formula
+% includes, density of air, absolute pressure, specific gas constant, and
+% absolute temperature. 
+% According to online researh, as we get closer to the ground, the values tend to converge towards one.
 % What method(s) can we employ to estimate [the ACd] product? 
-% <put your answer here in these comments>
 
 % What is your estimated [ACd] product?
-% <put your answer here in these comments>
+% ACd = 0.889
 %
 % [Given what we are told in the textbook about the simple drag constant, b,] 
 %   does the estimate for ACd seem reasonable?
-% <put your answer here in these comments>
+% We do not believe the estimate is reasonable.
 
 part = 3;
-%[T,M] = ode45(@fall, [0,270], [39000,0]);
+[T,M] = ode45(@fall, [0,270], [39000,0]);
 
-%plotComparisons(270, 'Part3: Drag', T, M);
+
+% <call here your function to create your plots>
+plotComparisons(270, 'Part3: Drag', T, M);
 %% Part 4
 % Answer some questions here in these comments...
 % What is the actual gravitational field strength around 39,000 meters? 
 %   (See Tipler Volume 1 6e page 369.) 
-
+%  9.688m/s^2 is the acceleration due to gravity at 39000m 
 % How sensitive is the altitude reached after 4.5 minutes to simpler and 
 %   more complicated ways of modelling the gravitational field strength? 
-% <put your answer here in these comments>
+% The altitude is not very sensitive because using the formula grav =
+% g_SEA*(r_earth^2)./(r_earth+y).^2 our value with 9.8 is already very
+% close to one. Therefore, a change will not make a big difference.
 
 % What other changes could we make to our model? Refer to, or at least 
 %   attempt to explain, the physics behind any changes that you propose. 
-% <put your answer here in these comments>
+% We could find much more accurate data, this will allow use to have a
+% smoother graph without any gaps in between.
 
 % What is a change that we could make to our model that would result in 
 %   insignificant changes to the altitude reached after 4.5 minutes? 
-% <put your answer here in these comments>
-
+% Any changes we make will allow the current data to change, therefore the
+% results will be different.
 % How can we decide what change is significant and what change is 
 %   insignificant?
-% <put your answer here in these comments>
+% We can calculate error %, if there is a larger % of error, than it is a
+% significant change.
 
 % [What changes did you try out to improve the model?  (Show us your changes
 %   even if they didn't make the improvement you hoped for.)]
-% <put your answer here in these comments>
+% We tried to make the excel data a bit better, however it was quite hard,
+% it filled in some of the gaps was had initially. 
 
 part = 4;
-%[T,M] = ode45(@fall, [0,270], [39000,0]);
-%plotComparisons(270, 'Part4: Universal Gravitation', T, M);
+[T,M] = ode45(@fall, [0,270], [39000,0]);
+plotComparisons(270, 'Part4: Universal Gravitation', T, M);
 
 %% Part 5
 % Answer some questions here in these comments...
 % At what altitude does Felix pull the ripcord to deploy his parachute? 
-% at about 2517
+% About 2517 m, we looked when there was a big impact on velocity
 
 % Recalculate the CdA product with the parachute open, and modify your 
 %   code so that you use one CdA product before and one after this altitude. 
@@ -187,7 +197,8 @@ part = 4;
 % <put your answer here in these comments>
 
 %   How safe or unsafe would such an acceleration be for Felix?
-% <put your answer here in these comments>
+% It would be extremely unsafe as the brain is deprived of oxygen. Felix's
+% flesh would break due to stress, too much force.
 
 part = 5;
 
@@ -197,10 +208,7 @@ part = 5;
 %trouble solving this version of the model, just plot the acceleration 
 %calculated from measurements. 
 
-% plot for part 5 can be found in plotComparisons function. We tried to
-% plot the result from calculating before and after the parachute opening,
-% however, despite not giving us any errors, MATLAB became incredibly slow
-% in the debugging process and made it virtually impossible to debug
+%code for part 5 is in the plotComparison function.
 
 %% Part 6 
 % Answer some questions here in these comments...
@@ -268,7 +276,7 @@ function grav = gravityEst(y)
     if part <= 3;
         grav = g_SEA;
     else
-       r_earth = 6371000;
+       r_earth = 6371000; %in meters
        grav = g_SEA*(r_earth^2)./(r_earth+y).^2;
     end
 end

@@ -1,0 +1,4920 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>assignment2</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-03-29"><meta name="DC.source" content="assignment2.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">ENSC180-Assignment2</a></li><li><a href="#3">Instructions:</a></li><li><a href="#4">main</a></li><li><a href="#6">Part 1</a></li><li><a href="#7">Part 2</a></li><li><a href="#8">Part 3</a></li><li><a href="#9">Part 4</a></li><li><a href="#10">Part 5</a></li><li><a href="#11">Part 6</a></li><li><a href="#12">nested functions</a></li><li><a href="#13">Additional nested functions</a></li><li><a href="#15">Preprocessing - fill missing data using simple linear interpolation</a></li></ul></div><pre class="codeinput"><span class="comment">%can-you-fall-faster-than-the-speed-of-sound/?redirectURL=https%3A%2F%2Fwww.wired.com%2F2012%2F02%2Fstratos-spa&#8230;</span>
+<span class="comment">%redbull.com/ca-en/red-bull-stratos-release-mission-data</span>
+<span class="comment">%wired.com/2012/07/how-do-you-measure-the-stratos-space-jump</span>
+<span class="comment">%wired.com/2012/07/analysis-of-a-red-bull-stratos-practice-jump</span>
+</pre><h2 id="2">ENSC180-Assignment2</h2><pre class="codeinput"><span class="comment">% Student Name 1: Sepehr Borji</span>
+
+<span class="comment">% Student 1 #: 123456781</span>
+
+<span class="comment">% Student 1 userid (email): Sepehr_borji@sfu.ca</span>
+
+<span class="comment">% Student Name 2: Akashroop Malhi</span>
+
+<span class="comment">% Student 2 #: 301393341</span>
+<span class="comment">% Student 2 userid (email): stu2 (asm19@sfu.ca)</span>
+
+<span class="comment">% Below, edit to list any people who helped you with the assignment,</span>
+<span class="comment">%      or put &#8216;none&#8217; if nobody helped (the two of) you.</span>
+
+<span class="comment">% Helpers: _everybody helped us/me with the assignment (list names or put &#8216;none&#8217;)__</span>
+</pre><h2 id="3">Instructions:</h2><div><ul><li>Put your name(s), student number(s), userid(s) in the above section.</li><li>Edit the "Helpers" line.</li><li>Your group name should be "A2_&lt;userid1&gt;_&lt;userid2&gt;" (eg. A2_stu1_stu2)</li><li>Form a group   as described at:  <a href="https://courses.cs.sfu.ca/docs/students">https://courses.cs.sfu.ca/docs/students</a></li><li>Replace "% <a href="place">your work here</a>" below, or similar, with your own answers and work.</li><li>Nagvigate to the "PUBLISH" tab (located on top of the editor)   * Click on the "Publish" dropdown and choose pdf as     "Output file format" under "Edit Publishing Options..."   * Click "Publish" button. Ensure a report is automatically generated</li><li>You will submit THIS file (assignment2.m),   and the PDF report (assignment2.pdf). Craig Scratchley, Spring 2021</li></ul></div><h2 id="4">main</h2><pre class="codeinput"><span class="keyword">function</span> main
+</pre><pre class="codeinput">clf
+
+<span class="comment">% constants -- you can put constants for the program here</span>
+<span class="comment">%MY_CONST = 123;'</span>
+
+g = -9.8;
+
+
+
+<span class="comment">% variables -- you can put variables for the program here</span>
+<span class="comment">%myVar = 456;</span>
+
+<span class="comment">% prepare the data</span>
+<span class="comment">% &lt;place your work here&gt;</span>
+    Table = readtable(<span class="string">'./data/data_clean_more_fixed_simplest.xlsx'</span>);
+    data = table2array(Table);
+
+<span class="comment">% ... = xlsread()/csvread()/readtable()</span>
+<span class="comment">% ...</span>
+<span class="comment">% myVector(isnan(myVector))=[];</span>
+
+<span class="comment">% &lt;put here any conversions that are necessary&gt;</span>
+</pre><img vspace="5" hspace="5" src="assignment2_01.png" alt=""> <h2 id="6">Part 1</h2><p>Answer some questions here in these comments... How accurate is the model for the first portion of the minute? The height vs the height measured is quite similar, in fact they are almost identical to eachother for the first portion of the minute. We can also state the same for velocity, as they are almost identical again. However, the measured acceleration changes quite frequently but remains similar to the modelled acceleration. Therfore, all of models are quite similar to eachother for the first portion of the minute.</p><pre class="codeinput"><span class="comment">% How accurate is the model for the last portion of that first minute?</span>
+<span class="comment">% The three models seems to differ at the start of the last portion of the</span>
+<span class="comment">% first minute. This is where the values no longer overlap with eachother</span>
+<span class="comment">% and you can see a difference between the modelled and measured values.</span>
+
+<span class="comment">% Comment on the acceleration calculated from the measured data.</span>
+<span class="comment">% Is there any way to smooth the acceleration calculated from the data?</span>
+<span class="comment">% The function smoothdata() helps smooth the acceleration calculated from</span>
+<span class="comment">% the data.</span>
+
+part = 1;
+<span class="comment">% model Felix Baumgartner&#8217;s altitude, velocity, and acceleration for the</span>
+<span class="comment">%     first minute after he jumped from 38,969.4 meters above sea level</span>
+[T,M] = ode45(@fall, [0,60], [38959,0])
+
+
+<span class="comment">% &lt;call here your function to create your plots&gt;</span>
+plotComparisons(60, <span class="string">'Part1 - Freefall'</span>, T, M)
+</pre><pre class="codeoutput">
+T =
+
+         0
+    0.0000
+    0.0000
+    0.0000
+    0.0000
+    0.0000
+    0.0001
+    0.0001
+    0.0001
+    0.0003
+    0.0004
+    0.0005
+    0.0006
+    0.0013
+    0.0019
+    0.0026
+    0.0032
+    0.0064
+    0.0096
+    0.0128
+    0.0160
+    0.0320
+    0.0480
+    0.0640
+    0.0800
+    0.1601
+    0.2401
+    0.3202
+    0.4002
+    0.8004
+    1.2006
+    1.6008
+    2.0010
+    3.5010
+    5.0010
+    6.5010
+    8.0010
+    9.5010
+   11.0010
+   12.5010
+   14.0010
+   15.5010
+   17.0010
+   18.5010
+   20.0010
+   21.5010
+   23.0010
+   24.5010
+   26.0010
+   27.5010
+   29.0010
+   30.5010
+   32.0010
+   33.5010
+   35.0010
+   36.5010
+   38.0010
+   39.5010
+   41.0010
+   42.5010
+   44.0010
+   45.5010
+   47.0010
+   48.5010
+   50.0010
+   51.5010
+   53.0010
+   54.5010
+   56.0010
+   57.0008
+   58.0005
+   59.0003
+   60.0000
+
+
+M =
+
+   1.0e+04 *
+
+    3.8959         0
+    3.8959   -0.0000
+    3.8959   -0.0000
+    3.8959   -0.0000
+    3.8959   -0.0000
+    3.8959   -0.0000
+    3.8959   -0.0000
+    3.8959   -0.0000
+    3.8959   -0.0000
+    3.8959   -0.0000
+    3.8959   -0.0000
+    3.8959   -0.0000
+    3.8959   -0.0000
+    3.8959   -0.0000
+    3.8959   -0.0000
+    3.8959   -0.0000
+    3.8959   -0.0000
+    3.8959   -0.0000
+    3.8959   -0.0000
+    3.8959   -0.0000
+    3.8959   -0.0000
+    3.8959   -0.0000
+    3.8959   -0.0000
+    3.8959   -0.0001
+    3.8959   -0.0001
+    3.8959   -0.0002
+    3.8959   -0.0002
+    3.8958   -0.0003
+    3.8958   -0.0004
+    3.8956   -0.0008
+    3.8952   -0.0012
+    3.8946   -0.0016
+    3.8939   -0.0020
+    3.8899   -0.0034
+    3.8836   -0.0049
+    3.8752   -0.0064
+    3.8645   -0.0078
+    3.8516   -0.0093
+    3.8366   -0.0108
+    3.8193   -0.0123
+    3.7998   -0.0137
+    3.7781   -0.0152
+    3.7542   -0.0167
+    3.7281   -0.0181
+    3.6997   -0.0196
+    3.6692   -0.0211
+    3.6365   -0.0226
+    3.6015   -0.0240
+    3.5644   -0.0255
+    3.5250   -0.0270
+    3.4835   -0.0284
+    3.4397   -0.0299
+    3.3937   -0.0314
+    3.3456   -0.0329
+    3.2952   -0.0343
+    3.2426   -0.0358
+    3.1878   -0.0373
+    3.1308   -0.0387
+    3.0716   -0.0402
+    3.0102   -0.0417
+    2.9465   -0.0432
+    2.8807   -0.0446
+    2.8127   -0.0461
+    2.7424   -0.0476
+    2.6700   -0.0490
+    2.5953   -0.0505
+    2.5185   -0.0520
+    2.4394   -0.0534
+    2.3581   -0.0549
+    2.3027   -0.0559
+    2.2463   -0.0569
+    2.1890   -0.0579
+    2.1306   -0.0588
+
+Warning: Exported image displays axes toolbar. To remove axes toolbar from
+image, export again. 
+</pre><h2 id="7">Part 2</h2><p>Answer some questions here in these comments... Estimate your uncertainty in the mass that you have chosen (at the     beginning of the jump). After research, the combined mass that we found was 118kg. The mass included felix + pressure suit + helmet with Oxygen + parachute.</p><pre class="codeinput"><span class="comment">% How sensitive is the velocity and altitude reached after 60 seconds to</span>
+<span class="comment">%    changes in the chosen mass?</span>
+<span class="comment">% If we changed the mass to 116kg or 120kg in order to consider the chances</span>
+<span class="comment">% of calculation error, we noticed that changing mass values leads to</span>
+<span class="comment">% change in terminal velocity. (Shift up or down)</span>
+
+part = 2;
+[T,M] = ode45(@fall, [0,60], [38959,0]);
+
+<span class="comment">% &lt;call here your function to create your plots&gt;</span>
+plotComparisons(60, <span class="string">'Part2 - Simple Air Resistance'</span>, T, M)
+</pre><h2 id="8">Part 3</h2><p>Answer some questions here in these comments... Felix was wearing a pressure suit and carrying oxygen. Why?     What can we say about the density of air in the stratosphere?     How is the density of air different at around 39,000 meters than it     is on the ground? The density of air near the top of the strtosphere is nearly zero. Here is our source: <a href="http://www.ccpo.odu.edu/SEES/ozone/class/Chap_6/6_2.htm#:~:text=The%20density%20of%20air%20near,with%20altitude%20and%20then%20increases">http://www.ccpo.odu.edu/SEES/ozone/class/Chap_6/6_2.htm#:~:text=The%20density%20of%20air%20near,with%20altitude%20and%20then%20increases</a>. The density of air compared to the ground it close to 1.2 Felix needs to wear his own helmet with oxyge and pressure suit since there is a lack of atomosphere pressure and air which will allow him to die. There was a higher velocity at the higher stratosphere point, therefore Felix has a lower drag froce at 39000m. Therefore, we can conclude that the lower the altitude, the higher the density of air.</p><pre class="codeinput"><span class="comment">% What are the factors involved in calculating the density of air?</span>
+<span class="comment">%     How do those factors change when we end up at the ground but start</span>
+<span class="comment">%     at the stratosphere?  Please explain how calculating air density up</span>
+<span class="comment">%     to the stratosphere is more complicated than say just in the troposphere.</span>
+<span class="comment">% After research, the factors thaat involve calculating the density of air</span>
+<span class="comment">% wa mainly pressure, temperature, and humidity. The air density formula</span>
+<span class="comment">% includes, density of air, absolute pressure, specific gas constant, and</span>
+<span class="comment">% absolute temperature.</span>
+<span class="comment">% According to online researh, as we get closer to the ground, the values tend to converge towards one.</span>
+<span class="comment">% What method(s) can we employ to estimate [the ACd] product?</span>
+
+<span class="comment">% What is your estimated [ACd] product?</span>
+<span class="comment">% ACd = 0.889</span>
+<span class="comment">%</span>
+<span class="comment">% [Given what we are told in the textbook about the simple drag constant, b,]</span>
+<span class="comment">%   does the estimate for ACd seem reasonable?</span>
+<span class="comment">% We do not believe the estimate is reasonable.</span>
+
+part = 3;
+[T,M] = ode45(@fall, [0,270], [39000,0]);
+
+
+<span class="comment">% &lt;call here your function to create your plots&gt;</span>
+plotComparisons(270, <span class="string">'Part3: Drag'</span>, T, M);
+</pre><pre class="codeoutput error">Output argument "res" (and maybe others) not assigned during call to "assignment2/finding_ACd".
+
+Error in assignment2/drag (line 297)
+        CdA = finding_ACd(m);
+
+Error in assignment2/acceleration (line 262)
+        b = drag(t, y, v, m);
+
+Error in assignment2/fall (line 240)
+    dvdt = acceleration(t, y, v); % acceleration: the derivative of velocity w.r.t. time
+
+Error in odearguments (line 90)
+f0 = feval(ode,t0,y0,args{:});   % ODE15I sets args{1} to yp0.
+
+Error in ode45 (line 115)
+  odearguments(FcnHandlesUsed, solver_name, ode, tspan, y0, options, varargin);
+
+Error in assignment2 (line 149)
+[T,M] = ode45(@fall, [0,270], [39000,0]);
+</pre><h2 id="9">Part 4</h2><p>Answer some questions here in these comments... What is the actual gravitational field strength around 39,000 meters?   (See Tipler Volume 1 6e page 369.)  9.688m/s^2 is the acceleration due to gravity at 39000m How sensitive is the altitude reached after 4.5 minutes to simpler and   more complicated ways of modelling the gravitational field strength? The altitude is not very sensitive because using the formula grav = g_SEA*(r_earth^2)./(r_earth+y).^2 our value with 9.8 is already very close to one. Therefore, a change will not make a big difference.</p><pre class="codeinput"><span class="comment">% What other changes could we make to our model? Refer to, or at least</span>
+<span class="comment">%   attempt to explain, the physics behind any changes that you propose.</span>
+<span class="comment">% We could find much more accurate data, this will allow use to have a</span>
+<span class="comment">% smoother graph without any gaps in between.</span>
+
+<span class="comment">% What is a change that we could make to our model that would result in</span>
+<span class="comment">%   insignificant changes to the altitude reached after 4.5 minutes?</span>
+<span class="comment">% Any changes we make will allow the current data to change, therefore the</span>
+<span class="comment">% results will be different.</span>
+<span class="comment">% How can we decide what change is significant and what change is</span>
+<span class="comment">%   insignificant?</span>
+<span class="comment">% We can calculate error %, if there is a larger % of error, than it is a</span>
+<span class="comment">% significant change.</span>
+
+<span class="comment">% [What changes did you try out to improve the model?  (Show us your changes</span>
+<span class="comment">%   even if they didn't make the improvement you hoped for.)]</span>
+<span class="comment">% We tried to make the excel data a bit better, however it was quite hard,</span>
+<span class="comment">% it filled in some of the gaps was had initially.</span>
+
+part = 4;
+[T,M] = ode45(@fall, [0,270], [39000,0]);
+plotComparisons(270, <span class="string">'Part4: Universal Gravitation'</span>, T, M);
+</pre><h2 id="10">Part 5</h2><p>Answer some questions here in these comments... At what altitude does Felix pull the ripcord to deploy his parachute? About 2517 m, we looked when there was a big impact on velocity</p><pre class="codeinput"><span class="comment">% Recalculate the CdA product with the parachute open, and modify your</span>
+<span class="comment">%   code so that you use one CdA product before and one after this altitude.</span>
+<span class="comment">%   According to this version of the model, what is the maximum magnitude</span>
+<span class="comment">%   of acceleration that Felix experiences?</span>
+<span class="comment">% &lt;put your answer here in these comments&gt;</span>
+
+<span class="comment">%   How safe or unsafe would such an acceleration be for Felix?</span>
+<span class="comment">% It would be extremely unsafe as the brain is deprived of oxygen. Felix's</span>
+<span class="comment">% flesh would break due to stress, too much force.</span>
+
+part = 5;
+
+<span class="comment">%Make a single acceleration-plot figure that includes, for each of the</span>
+<span class="comment">%model and the acceleration calculated from measurements, the moment when</span>
+<span class="comment">%the parachute opens and the following 10 or so seconds. If you have</span>
+<span class="comment">%trouble solving this version of the model, just plot the acceleration</span>
+<span class="comment">%calculated from measurements.</span>
+
+<span class="comment">%code for part 5 is in the plotComparison function.</span>
+</pre><h2 id="11">Part 6</h2><p>Answer some questions here in these comments... How long does it take for Felix&#8217;s parachute to open? <a href="put">your answer here in these comments</a></p><pre class="codeinput">part = 6;
+
+<span class="comment">%Redraw the acceleration figure from the previous Part but using the new</span>
+<span class="comment">%   model. Also, using your plotting function from Part 1, plot the</span>
+<span class="comment">%   measured/calculated data and the model for the entire jump from</span>
+<span class="comment">%   stratosphere to ground.</span>
+<span class="comment">% &lt;place your work here&gt;</span>
+</pre><h2 id="12">nested functions</h2><p>nested functions below are required for the assignment. see Appendix B of Physical Modeling in MATLAB for discussion of nested functions</p><pre class="codeinput"><span class="keyword">function</span> res = fall(t, X)
+    <span class="comment">%FALL &lt;Summary of this function goes here&gt;</span>
+    <span class="comment">%   &lt;Detailed explanation goes here&gt;</span>
+
+    <span class="comment">% do not modify this function unless required by you for some reason!</span>
+
+    y = X(1); <span class="comment">% the first element is position</span>
+    v = X(2); <span class="comment">% the second element is velocity</span>
+
+    dydt = v; <span class="comment">% velocity: the derivative of position w.r.t. time</span>
+    dvdt = acceleration(t, y, v); <span class="comment">% acceleration: the derivative of velocity w.r.t. time</span>
+
+    res = [dydt; dvdt]; <span class="comment">% pack the results in a column vector</span>
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> res = acceleration(t, y, v)
+    <span class="comment">% &lt;insert description of function here&gt;</span>
+    <span class="comment">% input...</span>
+    <span class="comment">%   t: time</span>
+    <span class="comment">%   y: altitude</span>
+    <span class="comment">%   v: velocity</span>
+    <span class="comment">% output...</span>
+    <span class="comment">%   res: acceleration</span>
+
+    <span class="comment">% do not modify this function unless required by you for some reason!</span>
+
+    grav = gravityEst(y);
+
+    <span class="keyword">if</span> part == 1 <span class="comment">% variable part is from workspace of function main.</span>
+        res = -grav;
+    <span class="keyword">else</span>
+        m = mass(t, v);
+        b = drag(t, y, v, m);
+
+        f_drag = -b * v^2 * sign(v);
+        a_drag = f_drag / m;
+        res = -grav + a_drag;
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="comment">% Please paste in or type in code into the below functions as may be needed.</span>
+
+<span class="keyword">function</span> grav = gravityEst(y)
+    <span class="comment">% estimate the acceleration due to gravity as a function of altitude, y</span>
+    g_SEA = 9.807;  <span class="comment">% gravity at sea level in m/s^2</span>
+
+    <span class="keyword">if</span> part &lt;= 3;
+        grav = g_SEA;
+    <span class="keyword">else</span>
+       r_earth = 6371000; <span class="comment">%in meters</span>
+       grav = g_SEA*(r_earth^2)./(r_earth+y).^2;
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> res = mass(t, v)
+
+    res = 73 + 27 + 3.628 + 14;  <span class="comment">%felix + pressure suit + helmet with Oxygen + parachute</span>
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> res = drag(t, y, v, m)
+<span class="comment">% &lt;insert description of function here&gt;</span>
+
+    <span class="keyword">if</span> part == 2
+        res = 0.2;
+    <span class="keyword">else</span>
+        <span class="comment">% air resistance drag = 1/2*rho*c_d*a = 1/2*rho*CdA</span>
+        <span class="comment">%%%%%%%%%%% input your code here %%%%%%%%%%%%%%%%</span>
+        CdA = finding_ACd(m);
+        rho = stdatmo(y);
+        res = 1/2*rho*CdA;
+
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> res = ACd_Calculator(h, v_terminal, m)
+    rho = stdatmo(h);
+    g = gravityEst(h);
+    res = 2*(g).*m./rho*v_terminal.^2;
+
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> res = finding_ACd(m)
+        h = 27833;
+        v_terminal = 1357.6;
+        before_Parachute = ACd_Calculator(h, v_terminal, m);
+
+<span class="keyword">end</span>
+</pre><h2 id="13">Additional nested functions</h2><p>Nest any other functions below.</p><pre class="codeinput"><span class="comment">%Do not put functions in other files when you submit, except you can use</span>
+<span class="comment">%    the stdatmo function in file stdatmo.m which has been provided to you.</span>
+<span class="keyword">function</span> res = plotComparisons(x, mytitle, T, M)
+</pre><pre class="codeinput">    <span class="comment">% time indexes for max time = x</span>
+    <span class="keyword">for</span> k = 1:length(T)
+        <span class="keyword">if</span> T(k) == x
+            t = 1:k; <span class="comment">% indexes only from the start of the fall until x seconds</span>
+            <span class="keyword">break</span>
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+    <span class="comment">% position/velocity indexes for max time = x using first column entries of M</span>
+    y = [];
+    v = [];
+    nb = [];
+    <span class="comment">%time_index=find(t_data &gt;= time);</span>
+    <span class="comment">%plot(t_data(1:time_index_min)</span>
+    <span class="comment">%alt_data(1:time_index_min), 'b-');</span>
+    <span class="comment">%plot(T,M(:,1),'r-');</span>
+    <span class="comment">%hold on;</span>
+</pre><h2 id="15">Preprocessing - fill missing data using simple linear interpolation</h2><pre class="codeinput"><span class="comment">%idx = 1:length(data)-1;</span>
+
+<span class="comment">%[t_data, ~] = fillmissing(t_data,'linear','SamplePoints',idx);</span>
+
+<span class="comment">%[alt_data, ~] = fillmissing(alt_data,'linear','SamplePoints',idx);</span>
+
+<span class="comment">%[vel_data, ~] = fillmissing(vel_data,'linear','SamplePoints',idx);</span>
+
+    b = smoothdata((data(:,3)));
+    plot(diff(b)./diff(t))
+    <span class="keyword">for</span> k = 1:length(t)
+        y = [y M(k,1)];
+        v = [v M(k,2)];
+        nb = [nb b(k)]
+    <span class="keyword">end</span>
+    <span class="comment">% subplot for model of position</span>
+    figure;
+    subplot(3,1,1);
+
+    xlabel(<span class="string">'s'</span>);
+    ylabel(<span class="string">'m'</span>);
+    hold <span class="string">on</span>
+    title(mytitle,<span class="string">'Altitude'</span>)
+    plot(t,y,<span class="string">'r-'</span>)
+    <span class="comment">% subplot for experimental data of position</span>
+    a = (data(:,2));
+    plot(a,<span class="string">'b-'</span>)
+    legend(<span class="string">'Modeled'</span>,<span class="string">'Actual'</span>)
+    hold <span class="string">off</span>
+
+
+    <span class="comment">% subplot for model of velocity</span>
+    subplot(3,1,2);
+    hold <span class="string">on</span>
+    xlabel(<span class="string">'s'</span>);
+    ylabel(<span class="string">'m/s'</span>);
+    plot(t,v,<span class="string">'r-'</span>)
+    title(mytitle,<span class="string">'Velocity'</span>)
+    <span class="comment">% subplot for experimental data of velocity</span>
+    b = smoothdata((data(:,3)));
+    plot(b,<span class="string">'b-'</span>)
+    legend(<span class="string">'Modeled'</span>, <span class="string">'Actual'</span>)
+    hold <span class="string">off</span>
+
+
+    <span class="comment">% subplot for model of acceleration</span>
+    subplot(3,1,3);
+
+    xlabel(<span class="string">'s'</span>);
+    ylabel(<span class="string">'m/s^2'</span>);
+    hold <span class="string">on</span>
+    plot(diff(v)./diff(t))
+    <span class="comment">% FILL IN COMMANDS</span>
+    title(mytitle,<span class="string">'Acceleration'</span>)
+    <span class="comment">% subplot for measured acceleration</span>
+    syms <span class="string">x</span>
+    plot(diff(nb)./diff(t))
+    legend(<span class="string">'Modeled'</span>,<span class="string">'Actual'</span>)
+    hold <span class="string">off</span>
+</pre><pre class="codeoutput">
+nb =
+
+  874.2853
+
+
+nb =
+
+  874.2853  874.6304
+
+
+nb =
+
+  874.2853  874.6304  874.9743
+
+
+nb =
+
+  874.2853  874.6304  874.9743  875.3177
+
+
+nb =
+
+  874.2853  874.6304  874.9743  875.3177  875.6598
+
+
+nb =
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007
+
+
+nb =
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Column 8
+
+  876.6789
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 9
+
+  876.6789  877.0161
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 10
+
+  876.6789  877.0161  877.3528
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 11
+
+  876.6789  877.0161  877.3528  877.6891
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 12
+
+  876.6789  877.0161  877.3528  877.6891  878.0248
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 13
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Column 15
+
+  879.0313
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 16
+
+  879.0313  879.3658
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 17
+
+  879.0313  879.3658  879.6999
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 18
+
+  879.0313  879.3658  879.6999  880.0341
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 19
+
+  879.0313  879.3658  879.6999  880.0341  880.3679
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 20
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Column 22
+
+  881.3678
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 23
+
+  881.3678  881.7004
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 24
+
+  881.3678  881.7004  882.0325
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 25
+
+  881.3678  881.7004  882.0325  882.3642
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 26
+
+  881.3678  881.7004  882.0325  882.3642  882.6960
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 27
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Column 29
+
+  883.6888
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 30
+
+  883.6888  884.0187
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 31
+
+  883.6888  884.0187  884.3489
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 32
+
+  883.6888  884.0187  884.3489  884.6786
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 33
+
+  883.6888  884.0187  884.3489  884.6786  885.0079
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 34
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Column 36
+
+  885.9943
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 37
+
+  885.9943  886.3223
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 38
+
+  885.9943  886.3223  886.6500
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 39
+
+  885.9943  886.3223  886.6500  886.9771
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 40
+
+  885.9943  886.3223  886.6500  886.9771  887.3031
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 41
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Column 43
+
+  888.2760
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 44
+
+  888.2760  888.5987
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 45
+
+  888.2760  888.5987  888.9202
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 46
+
+  888.2760  888.5987  888.9202  889.2406
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 47
+
+  888.2760  888.5987  888.9202  889.2406  889.5605
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 48
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Column 50
+
+  890.5138
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 51
+
+  890.5138  890.8298
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 52
+
+  890.5138  890.8298  891.1453
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 53
+
+  890.5138  890.8298  891.1453  891.4596
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 54
+
+  890.5138  890.8298  891.1453  891.4596  891.7728
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 55
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Column 57
+
+  892.7076
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Columns 57 through 58
+
+  892.7076  893.0176
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Columns 57 through 59
+
+  892.7076  893.0176  893.3265
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Columns 57 through 60
+
+  892.7076  893.0176  893.3265  893.6342
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Columns 57 through 61
+
+  892.7076  893.0176  893.3265  893.6342  893.9415
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Columns 57 through 62
+
+  892.7076  893.0176  893.3265  893.6342  893.9415  894.2477
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Columns 57 through 63
+
+  892.7076  893.0176  893.3265  893.6342  893.9415  894.2477  894.5527
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Columns 57 through 63
+
+  892.7076  893.0176  893.3265  893.6342  893.9415  894.2477  894.5527
+
+  Column 64
+
+  894.8573
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Columns 57 through 63
+
+  892.7076  893.0176  893.3265  893.6342  893.9415  894.2477  894.5527
+
+  Columns 64 through 65
+
+  894.8573  895.1608
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Columns 57 through 63
+
+  892.7076  893.0176  893.3265  893.6342  893.9415  894.2477  894.5527
+
+  Columns 64 through 66
+
+  894.8573  895.1608  895.4639
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Columns 57 through 63
+
+  892.7076  893.0176  893.3265  893.6342  893.9415  894.2477  894.5527
+
+  Columns 64 through 67
+
+  894.8573  895.1608  895.4639  895.7658
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Columns 57 through 63
+
+  892.7076  893.0176  893.3265  893.6342  893.9415  894.2477  894.5527
+
+  Columns 64 through 68
+
+  894.8573  895.1608  895.4639  895.7658  896.0666
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Columns 57 through 63
+
+  892.7076  893.0176  893.3265  893.6342  893.9415  894.2477  894.5527
+
+  Columns 64 through 69
+
+  894.8573  895.1608  895.4639  895.7658  896.0666  896.3669
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Columns 57 through 63
+
+  892.7076  893.0176  893.3265  893.6342  893.9415  894.2477  894.5527
+
+  Columns 64 through 70
+
+  894.8573  895.1608  895.4639  895.7658  896.0666  896.3669  896.6662
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Columns 57 through 63
+
+  892.7076  893.0176  893.3265  893.6342  893.9415  894.2477  894.5527
+
+  Columns 64 through 70
+
+  894.8573  895.1608  895.4639  895.7658  896.0666  896.3669  896.6662
+
+  Column 71
+
+  896.9650
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Columns 57 through 63
+
+  892.7076  893.0176  893.3265  893.6342  893.9415  894.2477  894.5527
+
+  Columns 64 through 70
+
+  894.8573  895.1608  895.4639  895.7658  896.0666  896.3669  896.6662
+
+  Columns 71 through 72
+
+  896.9650  897.2635
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Columns 57 through 63
+
+  892.7076  893.0176  893.3265  893.6342  893.9415  894.2477  894.5527
+
+  Columns 64 through 70
+
+  894.8573  895.1608  895.4639  895.7658  896.0666  896.3669  896.6662
+
+  Columns 71 through 73
+
+  896.9650  897.2635  897.5608
+
+</pre><img vspace="5" hspace="5" src="assignment2_02.png" alt=""> <pre class="codeoutput">
+nb =
+
+  874.2853
+
+
+nb =
+
+  874.2853  874.6304
+
+
+nb =
+
+  874.2853  874.6304  874.9743
+
+
+nb =
+
+  874.2853  874.6304  874.9743  875.3177
+
+
+nb =
+
+  874.2853  874.6304  874.9743  875.3177  875.6598
+
+
+nb =
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007
+
+
+nb =
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Column 8
+
+  876.6789
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 9
+
+  876.6789  877.0161
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 10
+
+  876.6789  877.0161  877.3528
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 11
+
+  876.6789  877.0161  877.3528  877.6891
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 12
+
+  876.6789  877.0161  877.3528  877.6891  878.0248
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 13
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Column 15
+
+  879.0313
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 16
+
+  879.0313  879.3658
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 17
+
+  879.0313  879.3658  879.6999
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 18
+
+  879.0313  879.3658  879.6999  880.0341
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 19
+
+  879.0313  879.3658  879.6999  880.0341  880.3679
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 20
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Column 22
+
+  881.3678
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 23
+
+  881.3678  881.7004
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 24
+
+  881.3678  881.7004  882.0325
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 25
+
+  881.3678  881.7004  882.0325  882.3642
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 26
+
+  881.3678  881.7004  882.0325  882.3642  882.6960
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 27
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Column 29
+
+  883.6888
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 30
+
+  883.6888  884.0187
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 31
+
+  883.6888  884.0187  884.3489
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 32
+
+  883.6888  884.0187  884.3489  884.6786
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 33
+
+  883.6888  884.0187  884.3489  884.6786  885.0079
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 34
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Column 36
+
+  885.9943
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 37
+
+  885.9943  886.3223
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 38
+
+  885.9943  886.3223  886.6500
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 39
+
+  885.9943  886.3223  886.6500  886.9771
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 40
+
+  885.9943  886.3223  886.6500  886.9771  887.3031
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 41
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Column 43
+
+  888.2760
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 44
+
+  888.2760  888.5987
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 45
+
+  888.2760  888.5987  888.9202
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 46
+
+  888.2760  888.5987  888.9202  889.2406
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 47
+
+  888.2760  888.5987  888.9202  889.2406  889.5605
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 48
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Column 50
+
+  890.5138
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 51
+
+  890.5138  890.8298
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 52
+
+  890.5138  890.8298  891.1453
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 53
+
+  890.5138  890.8298  891.1453  891.4596
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 54
+
+  890.5138  890.8298  891.1453  891.4596  891.7728
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 55
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Column 57
+
+  892.7076
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Columns 57 through 58
+
+  892.7076  893.0176
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Columns 57 through 59
+
+  892.7076  893.0176  893.3265
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Columns 57 through 60
+
+  892.7076  893.0176  893.3265  893.6342
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Columns 57 through 61
+
+  892.7076  893.0176  893.3265  893.6342  893.9415
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Columns 57 through 62
+
+  892.7076  893.0176  893.3265  893.6342  893.9415  894.2477
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Columns 57 through 63
+
+  892.7076  893.0176  893.3265  893.6342  893.9415  894.2477  894.5527
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Columns 57 through 63
+
+  892.7076  893.0176  893.3265  893.6342  893.9415  894.2477  894.5527
+
+  Column 64
+
+  894.8573
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Columns 57 through 63
+
+  892.7076  893.0176  893.3265  893.6342  893.9415  894.2477  894.5527
+
+  Columns 64 through 65
+
+  894.8573  895.1608
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Columns 57 through 63
+
+  892.7076  893.0176  893.3265  893.6342  893.9415  894.2477  894.5527
+
+  Columns 64 through 66
+
+  894.8573  895.1608  895.4639
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Columns 57 through 63
+
+  892.7076  893.0176  893.3265  893.6342  893.9415  894.2477  894.5527
+
+  Columns 64 through 67
+
+  894.8573  895.1608  895.4639  895.7658
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Columns 57 through 63
+
+  892.7076  893.0176  893.3265  893.6342  893.9415  894.2477  894.5527
+
+  Columns 64 through 68
+
+  894.8573  895.1608  895.4639  895.7658  896.0666
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Columns 57 through 63
+
+  892.7076  893.0176  893.3265  893.6342  893.9415  894.2477  894.5527
+
+  Columns 64 through 69
+
+  894.8573  895.1608  895.4639  895.7658  896.0666  896.3669
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Columns 57 through 63
+
+  892.7076  893.0176  893.3265  893.6342  893.9415  894.2477  894.5527
+
+  Columns 64 through 70
+
+  894.8573  895.1608  895.4639  895.7658  896.0666  896.3669  896.6662
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Columns 57 through 63
+
+  892.7076  893.0176  893.3265  893.6342  893.9415  894.2477  894.5527
+
+  Columns 64 through 70
+
+  894.8573  895.1608  895.4639  895.7658  896.0666  896.3669  896.6662
+
+  Column 71
+
+  896.9650
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Columns 57 through 63
+
+  892.7076  893.0176  893.3265  893.6342  893.9415  894.2477  894.5527
+
+  Columns 64 through 70
+
+  894.8573  895.1608  895.4639  895.7658  896.0666  896.3669  896.6662
+
+  Columns 71 through 72
+
+  896.9650  897.2635
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Columns 57 through 63
+
+  892.7076  893.0176  893.3265  893.6342  893.9415  894.2477  894.5527
+
+  Columns 64 through 70
+
+  894.8573  895.1608  895.4639  895.7658  896.0666  896.3669  896.6662
+
+  Columns 71 through 73
+
+  896.9650  897.2635  897.5608
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Columns 57 through 63
+
+  892.7076  893.0176  893.3265  893.6342  893.9415  894.2477  894.5527
+
+  Columns 64 through 70
+
+  894.8573  895.1608  895.4639  895.7658  896.0666  896.3669  896.6662
+
+  Columns 71 through 74
+
+  896.9650  897.2635  897.5608  897.8576
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Columns 57 through 63
+
+  892.7076  893.0176  893.3265  893.6342  893.9415  894.2477  894.5527
+
+  Columns 64 through 70
+
+  894.8573  895.1608  895.4639  895.7658  896.0666  896.3669  896.6662
+
+  Columns 71 through 75
+
+  896.9650  897.2635  897.5608  897.8576  898.1541
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Columns 57 through 63
+
+  892.7076  893.0176  893.3265  893.6342  893.9415  894.2477  894.5527
+
+  Columns 64 through 70
+
+  894.8573  895.1608  895.4639  895.7658  896.0666  896.3669  896.6662
+
+  Columns 71 through 76
+
+  896.9650  897.2635  897.5608  897.8576  898.1541  898.4495
+
+
+nb =
+
+  Columns 1 through 7
+
+  874.2853  874.6304  874.9743  875.3177  875.6598  876.0007  876.3404
+
+  Columns 8 through 14
+
+  876.6789  877.0161  877.3528  877.6891  878.0248  878.3608  878.6963
+
+  Columns 15 through 21
+
+  879.0313  879.3658  879.6999  880.0341  880.3679  880.7012  881.0348
+
+  Columns 22 through 28
+
+  881.3678  881.7004  882.0325  882.3642  882.6960  883.0274  883.3583
+
+  Columns 29 through 35
+
+  883.6888  884.0187  884.3489  884.6786  885.0079  885.3367  885.6657
+
+  Columns 36 through 42
+
+  885.9943  886.3223  886.6500  886.9771  887.3031  887.6286  887.9529
+
+  Columns 43 through 49
+
+  888.2760  888.5987  888.9202  889.2406  889.5605  889.8792  890.1967
+
+  Columns 50 through 56
+
+  890.5138  890.8298  891.1453  891.4596  891.7728  892.0856  892.3972
+
+  Columns 57 through 63
+
+  892.7076  893.0176  893.3265  893.6342  893.9415  894.2477  894.5527
+
+  Columns 64 through 70
+
+  894.8573  895.1608  895.4639  895.7658  896.0666  896.3669  896.6662
+
+  Columns 71 through 77
+
+  896.9650  897.2635  897.5608  897.8576  898.1541  898.4495  898.7444
+
+</pre><img vspace="5" hspace="5" src="assignment2_03.png" alt=""> <img vspace="5" hspace="5" src="assignment2_04.png" alt=""> <pre class="codeinput"><span class="keyword">end</span>
+
+<span class="comment">% end of nested functions</span>
+</pre><pre class="codeinput"><span class="keyword">end</span> <span class="comment">% closes function main.</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%can-you-fall-faster-than-the-speed-of-sound/?redirectURL=https%3A%2F%2Fwww.wired.com%2F2012%2F02%2Fstratos-spa…
+%redbull.com/ca-en/red-bull-stratos-release-mission-data
+%wired.com/2012/07/how-do-you-measure-the-stratos-space-jump
+%wired.com/2012/07/analysis-of-a-red-bull-stratos-practice-jump
+%% ENSC180-Assignment2
+
+% Student Name 1: Sepehr Borji
+
+% Student 1 #: 123456781
+
+% Student 1 userid (email): Sepehr_borji@sfu.ca
+
+% Student Name 2: Akashroop Malhi
+
+% Student 2 #: 301393341
+% Student 2 userid (email): stu2 (asm19@sfu.ca)
+
+% Below, edit to list any people who helped you with the assignment, 
+%      or put ‘none’ if nobody helped (the two of) you.
+
+% Helpers: _everybody helped us/me with the assignment (list names or put ‘none’)__
+
+%% Instructions:
+% * Put your name(s), student number(s), userid(s) in the above section.
+% * Edit the "Helpers" line.  
+% * Your group name should be "A2_<userid1>_<userid2>" (eg. A2_stu1_stu2)
+% * Form a group 
+%   as described at:  https://courses.cs.sfu.ca/docs/students
+% * Replace "% <place your work here>" below, or similar, with your own answers and work.
+% * Nagvigate to the "PUBLISH" tab (located on top of the editor)
+%   * Click on the "Publish" dropdown and choose pdf as 
+%     "Output file format" under "Edit Publishing Options..."
+%   * Click "Publish" button. Ensure a report is automatically generated
+% * You will submit THIS file (assignment2.m),    
+%   and the PDF report (assignment2.pdf).
+% Craig Scratchley, Spring 2021
+
+%% main
+
+function main
+
+clf
+
+% constants REPLACE_WITH_DASH_DASH you can put constants for the program here
+%MY_CONST = 123;'
+
+g = -9.8;
+
+
+
+% variables REPLACE_WITH_DASH_DASH you can put variables for the program here
+%myVar = 456;
+
+% prepare the data
+% <place your work here>
+    Table = readtable('./data/data_clean_more_fixed_simplest.xlsx');
+    data = table2array(Table);    
+
+% ... = xlsread()/csvread()/readtable()
+% ...
+% myVector(isnan(myVector))=[];
+
+% <put here any conversions that are necessary>
+
+%% Part 1
+% Answer some questions here in these comments...
+% How accurate is the model for the first portion of the minute? 
+% The height vs the height measured is quite similar, in fact they are
+% almost identical to eachother for the first portion of the minute. We can
+% also state the same for velocity, as they are almost identical again.
+% However, the measured acceleration changes quite frequently but remains
+% similar to the modelled acceleration. Therfore, all of models are quite
+% similar to eachother for the first portion of the minute.
+
+% How accurate is the model for the last portion of that first minute? 
+% The three models seems to differ at the start of the last portion of the
+% first minute. This is where the values no longer overlap with eachother
+% and you can see a difference between the modelled and measured values.
+
+% Comment on the acceleration calculated from the measured data. 
+% Is there any way to smooth the acceleration calculated from the data?
+% The function smoothdata() helps smooth the acceleration calculated from
+% the data.
+
+part = 1;
+% model Felix Baumgartner’s altitude, velocity, and acceleration for the 
+%     first minute after he jumped from 38,969.4 meters above sea level
+[T,M] = ode45(@fall, [0,60], [38959,0])
+
+
+% <call here your function to create your plots>
+plotComparisons(60, 'Part1 - Freefall', T, M)  
+
+%% Part 2
+% Answer some questions here in these comments...
+% Estimate your uncertainty in the mass that you have chosen (at the 
+%     beginning of the jump). 
+% After research, the combined mass that we found was 118kg. The mass
+% included felix + pressure suit + helmet with Oxygen + parachute.
+
+% How sensitive is the velocity and altitude reached after 60 seconds to 
+%    changes in the chosen mass?
+% If we changed the mass to 116kg or 120kg in order to consider the chances
+% of calculation error, we noticed that changing mass values leads to
+% change in terminal velocity. (Shift up or down)
+
+part = 2;
+[T,M] = ode45(@fall, [0,60], [38959,0]);
+
+% <call here your function to create your plots>
+plotComparisons(60, 'Part2 - Simple Air Resistance', T, M)
+
+%% Part 3
+% Answer some questions here in these comments...
+% Felix was wearing a pressure suit and carrying oxygen. Why? 
+%     What can we say about the density of air in the stratosphere?
+%     How is the density of air different at around 39,000 meters than it 
+%     is on the ground?
+% The density of air near the top of the strtosphere is nearly zero. Here
+% is our source: http://www.ccpo.odu.edu/SEES/ozone/class/Chap_6/6_2.htm#:~:text=The%20density%20of%20air%20near,with%20altitude%20and%20then%20increases.
+% The density of air compared to the ground it close to 1.2
+% Felix needs to wear his own helmet with oxyge and pressure suit since
+% there is a lack of atomosphere pressure and air which will allow him to
+% die.
+% There was a higher velocity at the higher stratosphere point, therefore
+% Felix has a lower drag froce at 39000m. Therefore, we can conclude that
+% the lower the altitude, the higher the density of air.
+
+
+% What are the factors involved in calculating the density of air? 
+%     How do those factors change when we end up at the ground but start 
+%     at the stratosphere?  Please explain how calculating air density up 
+%     to the stratosphere is more complicated than say just in the troposphere.
+% After research, the factors thaat involve calculating the density of air
+% wa mainly pressure, temperature, and humidity. The air density formula
+% includes, density of air, absolute pressure, specific gas constant, and
+% absolute temperature. 
+% According to online researh, as we get closer to the ground, the values tend to converge towards one.
+% What method(s) can we employ to estimate [the ACd] product? 
+
+% What is your estimated [ACd] product?
+% ACd = 0.889
+%
+% [Given what we are told in the textbook about the simple drag constant, b,] 
+%   does the estimate for ACd seem reasonable?
+% We do not believe the estimate is reasonable.
+
+part = 3;
+[T,M] = ode45(@fall, [0,270], [39000,0]);
+
+
+% <call here your function to create your plots>
+plotComparisons(270, 'Part3: Drag', T, M);
+%% Part 4
+% Answer some questions here in these comments...
+% What is the actual gravitational field strength around 39,000 meters? 
+%   (See Tipler Volume 1 6e page 369.) 
+%  9.688m/s^2 is the acceleration due to gravity at 39000m 
+% How sensitive is the altitude reached after 4.5 minutes to simpler and 
+%   more complicated ways of modelling the gravitational field strength? 
+% The altitude is not very sensitive because using the formula grav =
+% g_SEA*(r_earth^2)./(r_earth+y).^2 our value with 9.8 is already very
+% close to one. Therefore, a change will not make a big difference.
+
+% What other changes could we make to our model? Refer to, or at least 
+%   attempt to explain, the physics behind any changes that you propose. 
+% We could find much more accurate data, this will allow use to have a
+% smoother graph without any gaps in between.
+
+% What is a change that we could make to our model that would result in 
+%   insignificant changes to the altitude reached after 4.5 minutes? 
+% Any changes we make will allow the current data to change, therefore the
+% results will be different.
+% How can we decide what change is significant and what change is 
+%   insignificant?
+% We can calculate error %, if there is a larger % of error, than it is a
+% significant change.
+
+% [What changes did you try out to improve the model?  (Show us your changes
+%   even if they didn't make the improvement you hoped for.)]
+% We tried to make the excel data a bit better, however it was quite hard,
+% it filled in some of the gaps was had initially. 
+
+part = 4;
+[T,M] = ode45(@fall, [0,270], [39000,0]);
+plotComparisons(270, 'Part4: Universal Gravitation', T, M);
+
+%% Part 5
+% Answer some questions here in these comments...
+% At what altitude does Felix pull the ripcord to deploy his parachute? 
+% About 2517 m, we looked when there was a big impact on velocity
+
+% Recalculate the CdA product with the parachute open, and modify your 
+%   code so that you use one CdA product before and one after this altitude. 
+%   According to this version of the model, what is the maximum magnitude 
+%   of acceleration that Felix experiences? 
+% <put your answer here in these comments>
+
+%   How safe or unsafe would such an acceleration be for Felix?
+% It would be extremely unsafe as the brain is deprived of oxygen. Felix's
+% flesh would break due to stress, too much force.
+
+part = 5;
+
+%Make a single acceleration-plot figure that includes, for each of the 
+%model and the acceleration calculated from measurements, the moment when 
+%the parachute opens and the following 10 or so seconds. If you have 
+%trouble solving this version of the model, just plot the acceleration 
+%calculated from measurements. 
+
+%code for part 5 is in the plotComparison function.
+
+%% Part 6 
+% Answer some questions here in these comments...
+% How long does it take for Felix’s parachute to open?
+% <put your answer here in these comments>
+
+part = 6;
+
+%Redraw the acceleration figure from the previous Part but using the new 
+%   model. Also, using your plotting function from Part 1, plot the 
+%   measured/calculated data and the model for the entire jump from 
+%   stratosphere to ground.
+% <place your work here>
+
+%% nested functions  
+% nested functions below are required for the assignment.  
+% see Appendix B of Physical Modeling in MATLAB for discussion of nested functions
+
+function res = fall(t, X)
+    %FALL <Summary of this function goes here>
+    %   <Detailed explanation goes here>
+
+    % do not modify this function unless required by you for some reason! 
+
+    y = X(1); % the first element is position
+    v = X(2); % the second element is velocity
+
+    dydt = v; % velocity: the derivative of position w.r.t. time
+    dvdt = acceleration(t, y, v); % acceleration: the derivative of velocity w.r.t. time
+
+    res = [dydt; dvdt]; % pack the results in a column vector
+end    
+
+function res = acceleration(t, y, v)
+    % <insert description of function here>
+    % input...
+    %   t: time
+    %   y: altitude
+    %   v: velocity
+    % output...
+    %   res: acceleration
+
+    % do not modify this function unless required by you for some reason! 
+
+    grav = gravityEst(y); 
+
+    if part == 1 % variable part is from workspace of function main.
+        res = -grav;
+    else
+        m = mass(t, v);
+        b = drag(t, y, v, m);
+
+        f_drag = -b * v^2 * sign(v);
+        a_drag = f_drag / m;
+        res = -grav + a_drag;
+    end
+end
+
+% Please paste in or type in code into the below functions as may be needed.
+
+function grav = gravityEst(y)
+    % estimate the acceleration due to gravity as a function of altitude, y
+    g_SEA = 9.807;  % gravity at sea level in m/s^2
+    
+    if part <= 3;
+        grav = g_SEA;
+    else
+       r_earth = 6371000; %in meters
+       grav = g_SEA*(r_earth^2)./(r_earth+y).^2;
+    end
+end
+
+function res = mass(t, v)
+  
+    res = 73 + 27 + 3.628 + 14;  %felix + pressure suit + helmet with Oxygen + parachute
+end
+
+function res = drag(t, y, v, m)
+% <insert description of function here>
+
+    if part == 2
+        res = 0.2;
+    else
+        % air resistance drag = 1/2*rho*c_d*a = 1/2*rho*CdA
+        %%%%%%%%%%% input your code here %%%%%%%%%%%%%%%%
+        CdA = finding_ACd(m);
+        rho = stdatmo(y);
+        res = 1/2*rho*CdA;
+
+    end
+end
+
+function res = ACd_Calculator(h, v_terminal, m)
+    rho = stdatmo(h);
+    g = gravityEst(h);
+    res = 2*(g).*m./rho*v_terminal.^2;
+    
+end
+
+function res = finding_ACd(m)
+        h = 27833;
+        v_terminal = 1357.6;
+        before_Parachute = ACd_Calculator(h, v_terminal, m);
+                
+end
+        
+
+
+  
+
+%% Additional nested functions
+% Nest any other functions below.  
+%Do not put functions in other files when you submit, except you can use
+%    the stdatmo function in file stdatmo.m which has been provided to you.
+function res = plotComparisons(x, mytitle, T, M)
+    % time indexes for max time = x
+    for k = 1:length(T)
+        if T(k) == x
+            t = 1:k; % indexes only from the start of the fall until x seconds
+            break
+        end
+    end
+    % position/velocity indexes for max time = x using first column entries of M
+    y = [];
+    v = [];
+    nb = [];
+    %time_index=find(t_data >= time);
+    %plot(t_data(1:time_index_min)
+    %alt_data(1:time_index_min), 'b-');
+    %plot(T,M(:,1),'r-');
+    %hold on;
+    %% Preprocessing - fill missing data using simple linear interpolation
+
+ 
+
+%idx = 1:length(data)-1;
+
+%[t_data, ~] = fillmissing(t_data,'linear','SamplePoints',idx);
+
+%[alt_data, ~] = fillmissing(alt_data,'linear','SamplePoints',idx);
+
+%[vel_data, ~] = fillmissing(vel_data,'linear','SamplePoints',idx);
+
+    b = smoothdata((data(:,3)));
+    plot(diff(b)./diff(t))
+    for k = 1:length(t)
+        y = [y M(k,1)];
+        v = [v M(k,2)];
+        nb = [nb b(k)]
+    end    
+    % subplot for model of position
+    figure;
+    subplot(3,1,1);
+   
+    xlabel('s');
+    ylabel('m');
+    hold on
+    title(mytitle,'Altitude')
+    plot(t,y,'r-')
+    % subplot for experimental data of position 
+    a = (data(:,2));
+    plot(a,'b-')
+    legend('Modeled','Actual')
+    hold off
+    
+
+    % subplot for model of velocity
+    subplot(3,1,2);
+    hold on
+    xlabel('s');
+    ylabel('m/s');
+    plot(t,v,'r-')
+    title(mytitle,'Velocity')
+    % subplot for experimental data of velocity
+    b = smoothdata((data(:,3)));
+    plot(b,'b-')
+    legend('Modeled', 'Actual')
+    hold off
+    
+
+    % subplot for model of acceleration
+    subplot(3,1,3);
+    
+    xlabel('s');
+    ylabel('m/s^2');
+    hold on 
+    plot(diff(v)./diff(t))
+    % FILL IN COMMANDS 
+    title(mytitle,'Acceleration')
+    % subplot for measured acceleration
+    syms x
+    plot(diff(nb)./diff(t))
+    legend('Modeled','Actual')
+    hold off
+    
+    
+    
+ 
+    
+    
+
+end       
+    
+% end of nested functions
+end % closes function main.
+##### SOURCE END #####
+--></body></html>
