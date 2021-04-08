@@ -6,11 +6,11 @@
 
 % Student 1 userid (email): Sepehr_borji@sfu.ca
 
-% Student Name 2: student2
+% Student Name 2: Akash Mallhi
 
-% Student 2 #: 123456782
+% Student 2 #: 301393341
 
-% Student 2 userid (email): stu2 (stu2@sfu.ca)
+% Student 2 userid (email): asm19@sfu.ca
 
 % Below, edit to list any people who helped you with the assignment, 
 %      or put ‘none’ if nobody helped (the two of) you.
@@ -31,11 +31,12 @@ function frameArray = assignment3_2017
 
 MAX_FRAMES = 128; % you can change this and consider increasing it.
 RESOLUTION = 712; % you can change this and consider increasing it.
-DURATION = 7; % Duration of video -- you can change this if you want.
+DURATION = 15; % Duration of video -- you can change this if you want.
 
 % Colors
-MAX_DEPTH = 25; % you will probably need to increase this.
+MAX_DEPTH = 123; % you will probably need to increase this.
 CMAP=colormap(flipud(jet(MAX_DEPTH))); %change the colormap as you want.
+
 
 WRITE_VIDEO_TO_FILE = false; % change this as you like (true/false)
 DO_IN_PARALLEL = true; % true; %change this as you like (true/false)
@@ -161,10 +162,10 @@ end
         depth = MAX_DEPTH; % you can make depth dynamic if you want.
         
         for k = 2:depth
-            [z,c] = mandelbrot_step(z,c,z0,k);
+            %[z,c] = mandelbrot_step(z,c,z0,k);
             % mandelbrot_step is a c-mex file that does one step of:
-            %  z = z.^2 + z0;
-            %  c(abs(z) < 2) = k;
+              z = z.^2 + z0;
+              c(abs(z) < 2) = k;
         end
         
         % create an image from c and then convert to frame.  Use CMAP
@@ -201,6 +202,6 @@ end
         open(vidObj);
     end
 
+    
 end
-
 
