@@ -28,13 +28,28 @@
 % Craig Scratchley, Spring 2021
 
 function frameArray = assignment3_2017
-
-MAX_FRAMES = 128; % you can change this and consider increasing it.
+% Since depth was decreased, to make up for the quality of the images, we
+% have increased resolution so we don't have a pixelated effect
+% the nature of the way we are zooming and flipping and how sporadic it is,
+% we will increase the duration so that frames per second is less and it
+% isn't as intense. However, if you want to feel like you're tripping, i
+% recommend 12 seconds duration, very dubstep
+MAX_FRAMES = 256; % you can change this and consider increasing it.
 RESOLUTION = 712; % you can change this and consider increasing it.
+<<<<<<< Updated upstream
 DURATION = 15; % Duration of video -- you can change this if you want.
 
 % Colors
 MAX_DEPTH = 123; % you will probably need to increase this.
+=======
+DURATION = 20; % Duration of video -- you can change this if you want.
+
+% Colors
+% Although increasing the max depth seems to cause sharper images or red
+% and blue, we wanted some more variety in the colour, so by decreasing to
+% 25, we have some yellow/green in the visuals now
+MAX_DEPTH = 25; % you will probably need to increase this.
+>>>>>>> Stashed changes
 CMAP=colormap(flipud(jet(MAX_DEPTH))); %change the colormap as you want.
 
 
@@ -80,8 +95,35 @@ zoomArray = interpArray(:,2); % zoom level of each frame
 % ***** modify the below line to consider zoom levels.
 % code below causes a gradual zooming out/in 
 sizeArray = [];
+% we created this for loop so that every alternating value in sizeArray is
+% a column vector with a value for every frame which is the value index
+% multiplied by the "size" from the centre of a frame with no zooming
+% (SIZE_0). Additionally, to cause some sporadic zooming just for
+% craziness, every odd index of the matrix will be negative. We did this
+% because if it is not negative for every odd index, then it is
+% incompatible with the centreFactor variable we have defined later, and
+% will cause the fractal to jump around, so making every index odd causes a
+% bit more coherence
+% this began as "for k = 1:MAX_FRAMES" so this would only zoom out, but we
+% have changed it to try zooming in as well
 for k = 1:MAX_FRAMES
-    sizeArray(k,1) = SIZE_0 * ((-1)^k)*k 
+    sizeArray(k,1) = SIZE_0 * ((-1)^k)*k; 
+end
+% Its cool that we are zooming out, but we will now try zooming in after a
+% while. After testing a lot of iterations, its become clear that since the
+% numbers in the size array are switching immediately, not following any
+% sort of continuous mathematical function, the frames are very sporadic
+% but this seems pretty dubstep so we'll keep it. In fact this is now
+% making it so exciting and long we will extend the number of frames
+% because of this. The only issue at this point is that we want to centre
+% the fractal now to the frame. 
+
+% we noticed after some playing around with our custom defined variable
+% centreFactor that we no longer need the magnitude of the factor to
+% greater than 1 or it will also try zooming in! For this reason, we've
+% kept centre factor magnitude less than 1
+for k = floor(MAX_FRAMES/2):MAX_FRAMES
+    sizeArray(k,1) = MAX_FRAMES/sizeArray(k,1);
 end
 %sizeArray = SIZE_0 * ones(MAX_FRAMES,1); % size from centre of each frame.
 
@@ -123,11 +165,18 @@ else
 end
 
     function frame = iterate (frameNum)
-        
+        % I added a whole new variable called centreFactor for the purpose
+        % of "flipping" the image for every odd value frame and to
+        % essentially pan the image left or right based on the magnitude of
+        % centreFactor. For example, if centerfactor is 1 or -1, then the
+        % fractal flips but stays in the same place in the frame, but when
+        % you increase the magnitude of centreFactor, the fractal looks
+        % like it is floating left and right. However, its worth noting
+        % this eventually approaches the centre as we zoom farther out
         if mod(frameNum,2) == 0
-            centreFactor = 6;
+            centreFactor = 0.01;
         else
-            centreFactor = -6;
+            centreFactor = -0.01;
         end
         centreX = real(centreFactor*centreArray(frameNum)); 
         centreY = imag(centreFactor*centreArray(frameNum)); 
