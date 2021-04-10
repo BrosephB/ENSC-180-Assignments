@@ -185,6 +185,7 @@ end
         % Create the two-dimensional complex grid using meshgrid
         [X,Y] = meshgrid(x,y);
         z0 = X + 1i*Y;
+        if frameNum > MAX_FRAMES/2
         
         % Initialize the iterates and counts arrays.
         z = z0;
@@ -209,8 +210,8 @@ end
         for k = 2:depth
             [z,c] = mandelbrot_step(z,c,z0,k);
             % mandelbrot_step is a c-mex file that does one step of:
-              %z = z.^2 + z0;
-              %c(abs(z) < 2) = k;
+              z = z.^2 + z0;
+              c(abs(z) < 2) = k;
         end
         
         % create an image from c and then convert to frame.  Use CMAP
