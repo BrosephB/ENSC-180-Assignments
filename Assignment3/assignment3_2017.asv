@@ -103,9 +103,7 @@ sizeArray = [];
 % bit more coherence
 % this began as "for k = 1:MAX_FRAMES" so this would only zoom out, but we
 % have changed it to try zooming in as well
-for k = 1:MAX_FRAMES
-    sizeArray(k,1) = SIZE_0 * ((-1)^k)*k; 
-end
+
 % Its cool that we are zooming out, but we will now try zooming in after a
 % while. After testing a lot of iterations, its become clear that since the
 % numbers in the size array are switching immediately, not following any
@@ -119,8 +117,11 @@ end
 % centreFactor that we no longer need the magnitude of the factor to
 % greater than 1 or it will also try zooming in! For this reason, we've
 % kept centre factor magnitude less than 1
-for k = floor(MAX_FRAMES/2):MAX_FRAMES
-    sizeArray(k,1) = MAX_FRAMES/sizeArray(k,1);
+for k = 1:MAX_FRAMES
+    if k < MAX_FRAMES/4
+        sizeArray(k,1) = SIZE_0 * ((-1)^k)*k;
+    elseif k < MAX_FRAMES/2 && k >= MAX_FRAMES/4
+        sizeArray(k,1) 
 end
 %sizeArray = SIZE_0 * ones(MAX_FRAMES,1); % size from centre of each frame.
 
@@ -185,7 +186,6 @@ end
         % Create the two-dimensional complex grid using meshgrid
         [X,Y] = meshgrid(x,y);
         z0 = X + 1i*Y;
-        if frameNum > MAX_FRAMES/2
         
         % Initialize the iterates and counts arrays.
         z = z0;
@@ -210,8 +210,8 @@ end
         for k = 2:depth
             [z,c] = mandelbrot_step(z,c,z0,k);
             % mandelbrot_step is a c-mex file that does one step of:
-              z = z.^2 + z0;
-              c(abs(z) < 2) = k;
+              %z = z.^2 + z0;
+              %c(abs(z) < 2) = k;
         end
         
         % create an image from c and then convert to frame.  Use CMAP

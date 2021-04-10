@@ -103,9 +103,7 @@ sizeArray = [];
 % bit more coherence
 % this began as "for k = 1:MAX_FRAMES" so this would only zoom out, but we
 % have changed it to try zooming in as well
-for k = 1:MAX_FRAMES
-    sizeArray(k,1) = SIZE_0 * ((-1)^k)*k; 
-end
+
 % Its cool that we are zooming out, but we will now try zooming in after a
 % while. After testing a lot of iterations, its become clear that since the
 % numbers in the size array are switching immediately, not following any
@@ -113,14 +111,23 @@ end
 % but this seems pretty dubstep so we'll keep it. In fact this is now
 % making it so exciting and long we will extend the number of frames
 % because of this. The only issue at this point is that we want to centre
-% the fractal now to the frame. 
+% the fractal now to the frame. Update: fixed the issue by lowering
+% centerfactor to a magnitude less than 1
 
 % we noticed after some playing around with our custom defined variable
 % centreFactor that we no longer need the magnitude of the factor to
 % greater than 1 or it will also try zooming in! For this reason, we've
 % kept centre factor magnitude less than 1
-for k = floor(MAX_FRAMES/2):MAX_FRAMES
-    sizeArray(k,1) = MAX_FRAMES/sizeArray(k,1);
+for k = 1:MAX_FRAMES
+    if k < MAX_FRAMES/4
+        sizeArray(k,1) = SIZE_0 * ((-1)^k)*k;
+    elseif k < MAX_FRAMES/2 && k >= MAX_FRAMES/4
+        sizeArray(k,1) = SIZE_0 * k;
+    elseif k < 3*MAX_FRAMES/4 && k >= MAX_FRAMES/2
+        sizeArray(k,1) = SIZE_0 * k^-1;
+    else
+        sizeArray(k,1) = SIZE_0 * sin(k);
+    end
 end
 %sizeArray = SIZE_0 * ones(MAX_FRAMES,1); % size from centre of each frame.
 
