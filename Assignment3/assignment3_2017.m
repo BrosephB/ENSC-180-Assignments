@@ -36,12 +36,10 @@ function frameArray = assignment3_2017
 % recommend 12 seconds duration, very dubstep
 MAX_FRAMES = 256; % you can change this and consider increasing it.
 RESOLUTION = 712; % you can change this and consider increasing it.
-<<<<<<< Updated upstream
 DURATION = 15; % Duration of video -- you can change this if you want.
 
 % Colors
 MAX_DEPTH = 123; % you will probably need to increase this.
-=======
 DURATION = 20; % Duration of video -- you can change this if you want.
 
 % Colors
@@ -49,7 +47,6 @@ DURATION = 20; % Duration of video -- you can change this if you want.
 % and blue, we wanted some more variety in the colour, so by decreasing to
 % 25, we have some yellow/green in the visuals now
 MAX_DEPTH = 25; % you will probably need to increase this.
->>>>>>> Stashed changes
 CMAP=colormap(flipud(jet(MAX_DEPTH))); %change the colormap as you want.
 
 
@@ -171,12 +168,11 @@ end
         % centreFactor. For example, if centerfactor is 1 or -1, then the
         % fractal flips but stays in the same place in the frame, but when
         % you increase the magnitude of centreFactor, the fractal looks
-        % like it is floating left and right. However, its worth noting
-        % this eventually approaches the centre as we zoom farther out
+        % like it is floating left and right when zooming out.
         if mod(frameNum,2) == 0
-            centreFactor = 0.01;
+            centreFactor = 0.04;
         else
-            centreFactor = -0.01;
+            centreFactor = -0.04;
         end
         centreX = real(centreFactor*centreArray(frameNum)); 
         centreY = imag(centreFactor*centreArray(frameNum)); 
