@@ -49,7 +49,7 @@ MAX_DEPTH = 25; % you will probably need to increase this.
 CMAP=colormap(flipud(jet(MAX_DEPTH))); %change the colormap as you want.
 
 
-WRITE_VIDEO_TO_FILE = false; % change this as you like (true/false)
+WRITE_VIDEO_TO_FILE = true; % change this as you like (true/false)
 DO_IN_PARALLEL = true; % true; %change this as you like (true/false)
 
 if DO_IN_PARALLEL
