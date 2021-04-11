@@ -34,13 +34,12 @@ function frameArray = assignment3_2017
 % we will increase the duration so that frames per second is less and it
 % isn't as intense. However, if you want to feel like you're tripping, i
 % recommend 12 seconds duration, very dubstep
-MAX_FRAMES = 256; % you can change this and consider increasing it.
+MAX_FRAMES = 350; % you can change this and consider increasing it.
 RESOLUTION = 712; % you can change this and consider increasing it.
-DURATION = 15; % Duration of video -- you can change this if you want.
 
 % Colors
 MAX_DEPTH = 123; % you will probably need to increase this.
-DURATION = 20; % Duration of video -- you can change this if you want.
+DURATION = 80; % Duration of video -- you can change this if you want.
 
 % Colors
 % Although increasing the max depth seems to cause sharper images or red
@@ -118,15 +117,20 @@ sizeArray = [];
 % centreFactor that we no longer need the magnitude of the factor to
 % greater than 1 or it will also try zooming in! For this reason, we've
 % kept centre factor magnitude less than 1
+
+% we created this for loop to make 'choreograph' the dance moves of the
+% image for every range of frames. His sin function dance is the most dancy
 for k = 1:MAX_FRAMES
-    if k < MAX_FRAMES/4
+    if k < MAX_FRAMES/5
         sizeArray(k,1) = SIZE_0 * ((-1)^k)*k;
-    elseif k < MAX_FRAMES/2 && k >= MAX_FRAMES/4
+    elseif k < 2*MAX_FRAMES/5 && k >= MAX_FRAMES/5
         sizeArray(k,1) = SIZE_0 * k;
-    elseif k < 3*MAX_FRAMES/4 && k >= MAX_FRAMES/2
+    elseif k < 3*MAX_FRAMES/5 && k >= 2*MAX_FRAMES/5
         sizeArray(k,1) = SIZE_0 * k^-1;
-    else
+    elseif k < 4*MAX_FRAMES/5 && k >= 3*MAX_FRAMES/5
         sizeArray(k,1) = SIZE_0 * sin(k);
+    else
+        sizeArray(k,1) = SIZE_0 * tan(k);
     end
 end
 %sizeArray = SIZE_0 * ones(MAX_FRAMES,1); % size from centre of each frame.
@@ -177,9 +181,9 @@ end
         % you increase the magnitude of centreFactor, the fractal looks
         % like it is floating left and right when zooming out.
         if mod(frameNum,2) == 0
-            centreFactor = 0.04;
+            centreFactor = 0.5;
         else
-            centreFactor = -0.04;
+            centreFactor = -0.5;
         end
         centreX = real(centreFactor*centreArray(frameNum)); 
         centreY = imag(centreFactor*centreArray(frameNum)); 
@@ -191,8 +195,15 @@ end
         % the below might work okay unless you want to further optimize
         % Create the two-dimensional complex grid using meshgrid
         [X,Y] = meshgrid(x,y);
-        z0 = X + 1i*Y;
-        
+        % we noticed that if we added trigonometric functions here (or just
+        % changed the magnitude of X and Y with any other function) we get
+        % compressions/expansions across the X and Y axes, so we made it so
+        % that the first half of the frames have this effect
+        if frameNum < MAX_FRAMES/2
+            z0 = X*sin(frameNum) + 1i*Y*cos(frameNum);
+        else
+            z0 = X + 1i*Y;
+        end
         % Initialize the iterates and counts arrays.
         z = z0;
         
