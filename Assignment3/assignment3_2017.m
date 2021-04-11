@@ -15,7 +15,7 @@
 % Below, edit to list any people who helped you with the assignment, 
 %      or put ‘none’ if nobody helped (the two of) you.
 
-% Helpers: _everybody helped us/me with the assignment (list names or put ‘none’)__
+% Helpers: none helped us/me with the assignment
 
 % Instructions:
 % * Put your name(s), student number(s), userid(s) in the above section.
@@ -91,7 +91,7 @@ zoomArray = interpArray(:,2); % zoom level of each frame
 % ***** modify the below line to consider zoom levels.
 % code below causes a gradual zooming out/in 
 sizeArray = [];
-% we created this for loop so that every alternating value in sizeArray is
+% we created this for loop below so that every alternating value in sizeArray is
 % a column vector with a value for every frame which is the value index
 % multiplied by the "size" from the centre of a frame with no zooming
 % (SIZE_0). Additionally, to cause some sporadic zooming just for
@@ -104,7 +104,7 @@ sizeArray = [];
 % have changed it to try zooming in as well
 
 % Its cool that we are zooming out, but we will now try zooming in after a
-% while. After testing a lot of iterations, its become clear that since the
+% number of frames. After testing a lot of iterations, its become clear that since the
 % numbers in the size array are switching immediately, not following any
 % sort of continuous mathematical function, the frames are very sporadic
 % but this seems pretty dubstep so we'll keep it. In fact this is now
@@ -120,6 +120,9 @@ sizeArray = [];
 
 % we created this for loop to make 'choreograph' the dance moves of the
 % image for every range of frames. His sin function dance is the most dancy
+% during the sin and tan parts is the only part that doesn't look
+% immediately choppy in the video, we wanted a little continous movement so
+% we kept this
 for k = 1:MAX_FRAMES
     if k < MAX_FRAMES/5
         sizeArray(k,1) = SIZE_0 * ((-1)^k)*k;
@@ -225,6 +228,8 @@ end
         depth = MAX_DEPTH; % you can make depth dynamic if you want.
         
         for k = 2:depth
+            % we commented out the below equation in order to use
+            % mandelbrot_step.m and we have edited that file as well
             [z,c] = mandelbrot_step(z,c,z0,k);
             % mandelbrot_step is a c-mex file that does one step of:
               %z = z.^2 + z0;
